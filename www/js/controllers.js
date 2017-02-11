@@ -55,7 +55,36 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('signinCtrl', function ($scope, $stateParams) {
-  
+.controller('signinCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth) {
+  // $localStorage.signin = 'no';
+  console.log('SignIn? ');
+
+  $scope.fbSignin = function () {
+    console.log('123');
+    var auth = $firebaseAuth();
+    //var provider = new firebase.auth.FacebookAuthProvider();
+
+    auth.$signInWithPopup("facebook").then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      console.log(token);
+      console.log(user.displayName);
+      console.log(user.email);
+      console.log(user.photoURL);
+      console.log(user);
+    }).catch(function (error) {
+      console.log(JSON.stringify(error));
+    });
+  }
+
+  $scope.passSignin = function () {
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });  
+}
+
 })
 ;
