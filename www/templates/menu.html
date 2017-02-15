@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-assertive">
       <ion-nav-back-button>
       </ion-nav-back-button>
 
@@ -13,14 +13,59 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+    <ion-header-bar class="bar-assertive">
+      <h1 class="title">IA Live</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
+        <!-- 
         <ion-item menu-close ng-click="login()">
-          Login
+              <i class="icon ion-email"></i> Login
         </ion-item>
+        -->
+        <li class="item item-image">
+            <img ng-src="{{user.claImage ? user.claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
+        </li>
+        <div class="item item-avatar" ng-show="user">
+          <img ng-src="{{user.claImage}}">
+          <h2>{{user.nome}}</h2>
+          <p>{{user.jogador}}</p>
+        </div>
+<!--
+        <a class="item item-icon-left" menu-close href ng-click="login()" ng-hide="user">
+          <i class="icon ion-log-in"></i>
+          Login
+        </a>      
+-->
+        <a class="item item-icon-left" menu-close ui-sref="app.feeds">
+          <i class="icon ion-ios-paper"></i>
+            Feed
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.cidade">
+          <i class="icon ion-android-car"></i>
+            Episódios
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.personagens">
+          <i class="icon ion-ios-people"></i>
+            Clã
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.npcs">
+          <i class="icon ion-ios-people-outline"></i>
+            Chat
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.criacao">
+          <i class="icon ion-compose"></i>
+            Criação de Personagens
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.planilha">
+          <i class="icon ion-clipboard"></i>
+            Planilha
+        </a>      
+        <a class="item item-icon-left" menu-close href ng-click="doLogout()" ng-show="user">
+          <i class="icon ion-log-out"></i>
+          Sair
+        </a>      
+        <!-- 
         <ion-item menu-close href="#/app/search">
           Search
         </ion-item>
@@ -28,8 +73,9 @@
           Browse
         </ion-item>
         <ion-item menu-close href="#/app/playlists">
-          Playlists
+          Personagens
         </ion-item>
+        -->
       </ion-list>
     </ion-content>
   </ion-side-menu>

@@ -38,23 +38,25 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'start
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.home', {
+    url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/home.html'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.perfil', {
+      url: '/perfil',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/perfil.html'
         }
       }
     })
+
+/*
     .state('app.playlists', {
       url: '/playlists',
       views: {
@@ -73,7 +75,9 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'start
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  })
+*/  
+  ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/signin');
 });

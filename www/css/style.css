@@ -1,1 +1,6 @@
 /* Empty. Add your own CSS if you like */
+
+.gm-header-menu-img {
+    width: 50% !important;
+    padding: 10px 0 10px 0;
+}
