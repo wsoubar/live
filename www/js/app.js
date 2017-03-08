@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'starter.controllers'])
+angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 
+'login'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -25,10 +26,22 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'start
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('signin', {
-    url: '/signin',
-    templateUrl: 'templates/signin.html',
-    controller: 'signinCtrl'
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'signupCtrl'
+  })
+
+  .state('perfil', {
+    url: '/perfil',
+    templateUrl: 'templates/perfil.html',
+    controller: 'perfilCtrl'
   })
 
   .state('app', {
@@ -47,14 +60,6 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'start
     }
   })
 
-  .state('app.perfil', {
-      url: '/perfil',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/perfil.html'
-        }
-      }
-    })
 
 /*
     .state('app.playlists', {
@@ -79,5 +84,5 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'start
 */  
   ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/signin');
+  $urlRouterProvider.otherwise('/login');
 });

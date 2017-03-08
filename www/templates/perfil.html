@@ -1,5 +1,44 @@
-<ion-view view-title="perfil">
-  <ion-content>
-    <h1>perfil</h1>
+<ion-view view-title="Cadastro do Perfil">
+  <ion-content class="padding">
+<form ng-submit="registrar()">
+
+<div class="list">
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Nome do Jogador</span>
+    <input type="text" placeholder="John">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Nome do Personagem</span>
+    <input type="text" placeholder="Suhr">
+  </label>
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Seita
+    </div>
+    <select>
+      <option selected>Selecione</option>
+      <option ng-repeat="seita in seitas">{{seita}}</option>
+    </select>
+  </label>
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Clã
+    </div>
+    <select>
+      <option selected>Selecione</option>
+      <option ng-repeat="clan in clans">{{clan}}</option>
+    </select>
+  </label>
+
+</div>
+
+  <div>
+        <button type="submit" class="button button-block button-positive">
+          <span>Criar Perfil</span>
+        </button>
+      </div>
+</form>
   </ion-content>
 </ion-view>
