@@ -1,24 +1,25 @@
-<ion-view view-title="Cadastro">
-  <ion-content>
-    <form ng-submit="registrar()">
-      <div class="list">
-        <label class="item item-input">
-    <span class="input-label">Email</span>
-    <input type="text" placeholder="fulano@email.com">
-  </label>
-        <label class="item item-input">
-    <span class="input-label">Senha</span>
-    <input type="password" placeholder="senha123">
-  </label>
-        </label>
-        <label class="item item-input">
-    <span class="input-label">Confirmar Senha</span>
-    <input type="password" placeholder="senha123">
-  </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Confirmar</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
-</ion-view>
+<div class="bar bar-header bar-assertive">
+  <h1 class="title">Registrar</h1>
+</div>
+<form ng-submit="registrar()">
+  <div id="login" class="list">
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Email</span>
+      <input type="text" placeholder="fulano@email.com">
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Senha</span>
+      <input type="password" placeholder="senha123">
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Confirmar Senha</span>
+      <input type="password" placeholder="senha123">
+    </label>
+  </div>
+  <div class="list padding">
+    <button type="submit" class="button button-block button-positive">
+      <span>Confirmar</span>
+    </button>
+  </div>
+
+</form>

@@ -1,8 +1,9 @@
-<ion-view view-title="Cadastro do Perfil">
-  <ion-content class="padding">
+<div class="bar bar-header bar-assertive">
+  <h1 class="title">Perfil</h1>
+</div>
 <form ng-submit="registrar()">
 
-<div class="list">
+<div id="perfil" class="list padding">
   <label class="item item-input item-stacked-label">
     <span class="input-label">Nome do Jogador</span>
     <input type="text" placeholder="John">
@@ -34,11 +35,9 @@
 
 </div>
 
-  <div>
+  <div class="list padding">
         <button type="submit" class="button button-block button-positive">
           <span>Criar Perfil</span>
         </button>
       </div>
 </form>
-  </ion-content>
-</ion-view>

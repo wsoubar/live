@@ -1,5 +1,8 @@
-<form ng-submit="doLogin()">
-  <div id="login" class="list padding">
+<div class="bar bar-header bar-assertive">
+  <h1 class="title">Login</h1>
+</div>
+<div id="login" class="list padding">
+  <form ng-submit="doLogin()">
     <label class="item item-input">
     <span class="input-label">Email</span>
           <input type="text" placeholder="joao@email.com" ng-model="loginData.username">
@@ -12,11 +15,11 @@
           <button class="button button-block button-positive" type="submit">Entrar</button>
         </label>
 
-    <div class="item">   
-          <p>Ainda não possui login? <a ui-sref="signup">Cadastre-se.</a></p> 
+    <div class="item">
+      <p>Ainda não possui login? <a ui-sref="signup">Cadastre-se.</a></p>
     </div>
-    <div class="item text-right">   
-          <p>Esqueceu sua senha? <a>Clique aqui.</a></p> 
+    <div class="item text-right">
+      <p>Esqueceu sua senha? <a>Clique aqui.</a></p>
     </div>
-  </div>
-</form>
+  </form>
+</div>

@@ -5,10 +5,18 @@
     padding: 10px 0 10px 0;
 }
 
+#perfil {
+    padding-top: 55px;
+}
+
+#login {
+    padding-top: 55px;
+}
+
 #login.list .item
 {
-border-top: 0px;
-border-left: 0px;
-border-right: 0px;
-border-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
 }
