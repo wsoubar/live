@@ -46,7 +46,7 @@
   });
 
   app.controller('signupCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
-
+    console.log('signupCtrl');
     $scope.registrar = function (params) {
         $state.go("perfil");
     };

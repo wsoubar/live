@@ -1,0 +1,50 @@
+<ion-view view-title="Chat">
+    <ion-nav-buttons side="right">
+        <button class="button" ng-click="mostraEnvio()"  ng-show="!user">
+          <i class="icon ion-compose"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+      <!-- <pre>msg: {{enviarMsg}} | user: {{user}}</pre> -->
+      <div class="item item-text-wrap" ng-hide="!user">
+         <h3>Você precisa fazer o login para acessar o feed da história</h3>
+      </div>
+      <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="doRefresh()">
+      </ion-refresher>
+      <form id="sendform" name="sendform" ng-submit="addFeed()" ng-show="!user && !enviarMsg">
+
+        <div class="list list-inset" style="padding-bottom: 10px;">
+          <label class="item item-input">
+            <textarea ng-model="formData.mensagem" placeholder="Comments"></textarea>
+          </label>
+          <button class=" item button button-block button-positive" type="submit">
+            Enviar
+          </button>
+
+        </div>
+      </form>
+
+      <div class="list list-inset">
+          <div class="item item-text-wrap item-divider">
+             Narrador
+          </div>  
+          <div class="item item-text-wrap">
+            Lorem ipsum dolor sit amet, te pro facete latine, sit ea nibh nominavi definitiones. Ei sint semper mea, affert dicunt quodsi has ne, ut quis aperiam apeirian pri. Ad mei oporteat senserit urbanitas, et sit quaestio consequat. Diam oporteat consequuntur an mei, vulputate interesset ex usu, te ius brute detraxit urbanitas
+          </div>
+      </div>
+      
+      <div class="list" ng-show="user">
+
+          <div class="item item-avatar item-text-wrap" ng-repeat="feed in feeds | orderBy: '-data'">
+            <img ng-src="{{feed.imagem}}">
+            <h2>{{feed.nome}} <span style="float: right; font-size: 12px;">{{feed.data | date: 'dd/MM HH:mm'}}</span></h2> 
+            <p>{{feed.mensagem}}</p>
+          </div>
+
+      </div>
+  
+
+  </ion-content>
+</ion-view>

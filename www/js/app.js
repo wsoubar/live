@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 
-'login'])
+'login',
+'clanchat'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -58,6 +59,17 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
         templateUrl: 'templates/home.html'
       }
     }
+  })
+
+  .state('app.clanchat', {
+    url: '/clanchat/:clanid',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/clanchat.html',
+        controller: 'clanChatCtrl'
+      }
+    }
+    
   })
 
 
