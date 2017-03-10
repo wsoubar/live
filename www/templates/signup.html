@@ -1,25 +1,31 @@
 <div class="bar bar-header bar-assertive">
   <h1 class="title">Registrar</h1>
 </div>
-<form ng-submit="registrar()">
+<form name="signupForm" novalidate>
   <div id="login" class="list">
     <label class="item item-input item-stacked-label">
       <span class="input-label">Email</span>
-      <input type="text" placeholder="fulano@email.com">
+      <input type="email" name="email" placeholder="fulano@email.com" ng-model="user.email" required>
+      <p style="color: red" ng-show="signupForm.email.$error.required && !signupForm.email.$pristine">* Email é obrigatório</p>
+      <p style="color: red" ng-show="signupForm.email.$invalid && !signupForm.email.$pristine">* Email inválido</p>
     </label>
     <label class="item item-input item-stacked-label">
       <span class="input-label">Senha</span>
-      <input type="password" placeholder="senha123">
+      <input type="password" name="pass" placeholder="senha123" ng-model="user.pass" ng-minlength="6" ng-maxlength="15" required>
+      <p style="color: red" ng-show="signupForm.pass.$error.required && !signupForm.pass.$pristine" >* Senha é obrigatória</p>
+      <p style="color: red" ng-show="signupForm.pass.$error.minlength || signupForm.pass.$error.maxlength">* A senha deve ter entre 6 e 15 caracteres</p>
     </label>
-    <label class="item item-input item-stacked-label">
+    <label class="item item-input item-stacked-label">  
       <span class="input-label">Confirmar Senha</span>
-      <input type="password" placeholder="senha123">
+      <input type="password" name="pass2" placeholder="senha123" ng-model="user.pass2" ng-minlength="6" ng-maxlength="15" required>
+      <p style="color: red" ng-show="signupForm.pass2.$error.required && !signupForm.pass2.$pristine" >* A confirmação de senha é obrigatória</p>
+      <p style="color: red" ng-show="signupForm.pass2.$error.minlength || signupForm.pass2.$error.maxlength">* A confirmação de senha deve ter entre 6 e 15 caracteres</p>
+      <p style="color: red" ng-show="user.pass != user.pass2">*A senha e a confirmação devem ser iguais</p>
     </label>
   </div>
-  <div class="list padding">
-    <button type="submit" class="button button-block button-positive">
-      <span>Confirmar</span>
-    </button>
+  <div class="padding">
+    <button type="buttom" class="button button-block button-positive" 
+      ng-click="signup(user)" ng-disabled="signupForm.$invalid || user.pass != user.pass2">Confirmar</button>
   </div>
 
 </form>

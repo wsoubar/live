@@ -15,41 +15,59 @@
   });
 
 
-  app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
+  app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
     // $localStorage.signin = 'no';
     console.log('login? ');
+    Auth.$onAuthStateChanged(function(firebaseUser) {
+      if (firebaseUser) {
+        console.log("Signed in as:", firebaseUser.uid);
+        $state.go("app.home");
+      } else {
+        console.log("Signed out");
+      }
+    });
 
-    $scope.doLogin = function() {
-      $state.go('app.home');
-    };
-
-    $scope.fbSignin = function () {
-      console.log('123');
-      var auth = $firebaseAuth();
-      //var provider = new firebase.auth.FacebookAuthProvider();
-
-      auth.$signInWithPopup("facebook").then(function (result) {
-        var token = result.credential.accessToken;
-        var user = result.user;
-        console.log(token);
-        console.log(user.displayName);
-        console.log(user.email);
-        console.log(user.photoURL);
-        console.log(user);
-
-        $state.go('app.perfil');
-      }).catch(function (error) {
-        console.log(JSON.stringify(error));
+    $scope.emailLogin = function (user) {
+      console.log('emailLogin');
+      Auth.$signInWithEmailAndPassword(user.email, user.password).then(function(firebaseUser) {
+        console.log("Signed in as:", firebaseUser);
+      }).catch(function(error) {
+        console.error("Authentication failed:", error);
+        alert('Login falhou!');
       });
     };
 
   });
 
-  app.controller('signupCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
+  app.controller('signupCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
     console.log('signupCtrl');
-    $scope.registrar = function (params) {
+    var user = {};
+
+    $scope.signup = function (user) {
+
+      Auth.$createUserWithEmailAndPassword(user.email, user.pass)
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        firebaseUser.sendEmailVerification();
+        alert("Usuário criado.")
         $state.go("perfil");
-    };
+      }).catch(function(error) {
+        console.error("Error: ", error);
+        alert("Erro ao criar usuário. "+ error.message);
+      });
+    }
+      
+  });
+
+  app.controller('resetPassCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
+
+    $scope.resetPassword = function() {
+      Auth.$sendPasswordResetEmail("my@email.com").then(function() {
+        console.log("Password reset email sent successfully!");
+      }).catch(function(error) {
+        console.error("Error: ", error);
+      });
+    }
   });
 
   app.controller('perfilCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
@@ -62,5 +80,12 @@
         $state.go("app.home");
     };
   });
+
+  // let's create a re-usable factory that generates the $firebaseAuth instance
+  app.factory("Auth", ["$firebaseAuth",
+    function($firebaseAuth) {
+      return $firebaseAuth();
+    }
+  ]);
 
 })();

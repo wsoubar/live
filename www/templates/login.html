@@ -2,10 +2,10 @@
   <h1 class="title">Login</h1>
 </div>
 <div id="login" class="list padding">
-  <form ng-submit="doLogin()">
+  <form ng-submit="emailLogin(loginData)">
     <label class="item item-input">
     <span class="input-label">Email</span>
-          <input type="text" placeholder="joao@email.com" ng-model="loginData.username">
+          <input type="email" placeholder="joao@email.com" ng-model="loginData.email">
         </label>
     <label class="item item-input">
     <span class="input-label">Senha</span>
