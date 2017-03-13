@@ -1,43 +1,39 @@
 <div class="bar bar-header bar-assertive">
-  <h1 class="title">Perfil</h1>
+  <h1 class="title">Personagem</h1>
 </div>
-<form ng-submit="registrar()">
+<form name="formp" ng-submit="registrar()">
 
 <div id="perfil" class="list padding">
   <label class="item item-input item-stacked-label">
-    <span class="input-label">Nome do Jogador</span>
-    <input type="text" placeholder="John">
-  </label>
-  <label class="item item-input item-stacked-label">
     <span class="input-label">Nome do Personagem</span>
-    <input type="text" placeholder="Suhr">
+    <input name="nome" type="text" placeholder="Abin Sur" ng-model="p.nome">
   </label>
 
   <label class="item item-input item-select">
-    <div class="input-label">
-      Seita
-    </div>
-    <select>
+    <div class="input-label">Seita</div>
+    <select name="seita" ng-model="p.seita">
       <option selected>Selecione</option>
       <option ng-repeat="seita in seitas">{{seita}}</option>
     </select>
   </label>
 
   <label class="item item-input item-select">
-    <div class="input-label">
-      Clã
-    </div>
-    <select>
+    <div class="input-label">Clã</div>
+    <select name="clan" ng-model="p.clan">
       <option selected>Selecione</option>
       <option ng-repeat="clan in clans">{{clan}}</option>
     </select>
   </label>
 
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">História</span>
+    <textarea rows="3" placeholder="Cole aqui a sua história..."></textarea>
+  </label>
 </div>
 
   <div class="list padding">
         <button type="submit" class="button button-block button-positive">
-          <span>Criar Perfil</span>
+          <span>Dar vida ao personagem</span>
         </button>
       </div>
 </form>

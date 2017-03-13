@@ -14,10 +14,13 @@
 
   });
 
-
+  /**
+   * 
+   */
   app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
     // $localStorage.signin = 'no';
     console.log('login? ');
+/*
     Auth.$onAuthStateChanged(function(firebaseUser) {
       if (firebaseUser) {
         console.log("Signed in as:", firebaseUser.uid);
@@ -26,11 +29,11 @@
         console.log("Signed out");
       }
     });
-
+*/
     $scope.emailLogin = function (user) {
       console.log('emailLogin');
       Auth.$signInWithEmailAndPassword(user.email, user.password).then(function(firebaseUser) {
-        console.log("Signed in as:", firebaseUser);
+        console.log("Signed in as:" + JSON.stringify(firebaseUser));
       }).catch(function(error) {
         console.error("Authentication failed:", error);
         alert('Login falhou!');
@@ -39,23 +42,54 @@
 
   });
 
-  app.controller('signupCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
+
+  /**
+   * SIGNUP controller
+   */
+  app.controller('signupCtrl', function ($scope, $stateParams, $localStorage, Auth, $state, $ionicPopup) {
     console.log('signupCtrl');
     var user = {};
 
+    // registra novo usuario
     $scope.signup = function (user) {
 
       Auth.$createUserWithEmailAndPassword(user.email, user.pass)
       .then(function(firebaseUser) {
-        console.log("User " + firebaseUser.uid + " created successfully!");
-        firebaseUser.sendEmailVerification();
-        alert("Usuário criado.")
-        $state.go("perfil");
+        //console.log(JSON.stringify(firebaseUser));
+        console.log("conta criada com sucesso");
+        
+        firebaseUser.updateProfile({
+          displayName: user.nome
+          // ,  photoURL: "https://example.com/jane-q-user/profile.jpg"
+        }).then(function() {
+          console.log("Perfil atualizado com sucesso.");
+        }, function(error) {
+          console.log("Erro ao atualizar perfil", error);
+        });
+
+        //$localStorage.firebaseUser = firebaseUser;
+        // firebaseUser.sendEmailVerification();
+        //alert("Seu email foi regsitrado com sucesso. Agora cadastre os dados do seu personagem. ");
+        $scope.showAlert();
+        //$state.go("perfil");
       }).catch(function(error) {
         console.error("Error: ", error);
         alert("Erro ao criar usuário. "+ error.message);
       });
     }
+
+    // An alert dialog
+    $scope.showAlert = function() {
+      var alertPopup = $ionicPopup.alert({
+        title: 'Sucesso',
+        template: 'Sua conta foi criada com <b>sucesso</b>. Agora cadastre os dados do seu personagem.'
+      });
+
+      alertPopup.then(function(res) {
+        $state.go('perfil');
+      });
+    };
+    
       
   });
 

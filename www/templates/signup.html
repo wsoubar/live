@@ -4,6 +4,13 @@
 <form name="signupForm" novalidate>
   <div id="login" class="list">
     <label class="item item-input item-stacked-label">
+      <span class="input-label">Nome</span>
+      <input type="text" name="nome" placeholder="José Maria" ng-model="user.nome" ng-minlength="7" ng-maxlength="21" required>
+      <p style="color: red" ng-show="signupForm.nome.$error.required && !signupForm.nome.$pristine">* Nome é obrigatório</p>
+      <p style="color: red" ng-show="signupForm.nome.$invalid && !signupForm.nome.$pristine">* Nome inválido</p>
+      <p style="color: red" ng-show="signupForm.nome.$error.minlength || signupForm.nome.$error.maxlength">* Nome deve ter entre 7 e 21 caracteres</p>
+    </label>
+    <label class="item item-input item-stacked-label">
       <span class="input-label">Email</span>
       <input type="email" name="email" placeholder="fulano@email.com" ng-model="user.email" required>
       <p style="color: red" ng-show="signupForm.email.$error.required && !signupForm.email.$pristine">* Email é obrigatório</p>
