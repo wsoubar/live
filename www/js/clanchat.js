@@ -5,7 +5,7 @@
 
   app.controller('clanChatCtrl', function ($rootScope, $scope, $stateParams, $localStorage, $firebaseArray, $state) {
         console.log("clanChatCtrl...");
-        var messagesRef = firebase.database().ref().child("chat").child("ventrue");
+        var messagesRef = firebase.database().ref().child("chat").child("setita");
         // download the data from a Firebase reference into a (pseudo read-only) array
         // all server changes are applied in realtime
         $scope.messages = $firebaseArray(messagesRef);
@@ -19,6 +19,14 @@
             console.log("carregado array..");
         });
         */
+
+  //    var list = $firebaseArray(ref);
+      $scope.messages.$add({ mensagem: "minha mensagem teste", data: Date.now() }).then(function(ref) {
+        var id = ref.key;
+        console.log("added record with id " + id);
+        $scope.messages.$indexFor(id); // returns location in the array
+      });
+
   });
 
 })();
