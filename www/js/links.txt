@@ -1,0 +1,17 @@
+ionic
+http://ionicframework.com/docs/components/#forms-placeholder-labels
+http://ionicframework.com/docs/api/service/$ionicPopup/
+https://gonehybrid.com/build-your-first-mobile-app-with-the-ionic-framework-part-6/
+
+firebase
+https://console.firebase.google.com/project/thelive-f8cb5/authentication/users
+https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
+
+angularfire
+https://github.com/firebase/angularfire/blob/master/docs/guide/user-auth.md
+https://github.com/firebase/angularfire/blob/master/docs/reference.md#getauth
+https://github.com/firebase/quickstart-js/blob/master/auth/email.html
+
+keystore apk
+https://github.com/hughred22/YouTube-Video-Listing-Ionic-Mobile-App/wiki/Preparing-for-Release-and-Publishing-Your-Ionic-App
+http://ionicframework.com/docs/guide/publishing.html

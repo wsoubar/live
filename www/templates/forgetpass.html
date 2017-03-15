@@ -1,0 +1,15 @@
+<div class="bar bar-header bar-assertive">
+  <h1 class="title">Reset de senha</h1>
+</div>
+<div id="login" class="list padding">
+  <form name="resetForm" ng-submit="resetPassword(loginData)" novalidate>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Email</span>
+      <input type="email" name="email" placeholder="joao@email.com" ng-model="loginData.email" required>
+      <p style="color: red" ng-show="resetForm.email.$invalid && !resetForm.email.$pristine">* Email inválido</p>
+    </label>
+    <label class="item">
+      <button class="button button-block button-positive" type="submit" ng-disabled="resetForm.$invalid" >Resetar senha</button>
+    </label>
+  </form>
+</div>
