@@ -15,7 +15,7 @@
   });
 
   /**
-   * 
+   * LOGIN CONTROLLER
    */
   app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
     // $localStorage.signin = 'no';
@@ -34,10 +34,13 @@
       console.log('emailLogin');
       Auth.$signInWithEmailAndPassword(user.email, user.password).then(function(firebaseUser) {
         console.log("Signed in as:" + JSON.stringify(firebaseUser));
+        $state.go("app.home");
       }).catch(function(error) {
         console.error("Authentication failed:", error);
         alert('Login falhou!');
       });
+
+
     };
 
   });
@@ -93,17 +96,46 @@
       
   });
 
-  app.controller('resetPassCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
 
-    $scope.resetPassword = function() {
-      Auth.$sendPasswordResetEmail("my@email.com").then(function() {
+  /**
+   * FORGETPASS CONTROLLER
+   */
+  app.controller('forgetpassCtrl', function ($scope, $stateParams, $localStorage, Auth, $state, $ionicPopup) {
+
+    $scope.resetPassword = function(param) {
+      Auth.$sendPasswordResetEmail(param.email).then(function() {
         console.log("Password reset email sent successfully!");
+        $scope.showAlert({titulo: 'Sucesso', 
+            mensagem: 'Em instantes você receberá um email para resetar sua senha.',
+            acao: 'login'});
       }).catch(function(error) {
         console.error("Error: ", error);
+        $scope.showAlert({titulo: 'Atenção', 
+            mensagem: 'Ocorreu um erro ao realizar a solicitação de reset de senha. <br/><b>Operação não realizada</b>.'});
       });
     }
+
+    // An alert dialog
+    $scope.showAlert = function(param) {
+      var alertPopup = $ionicPopup.alert({
+        title: param.titulo,
+        template: param.mensagem
+      });
+
+      alertPopup.then(function(res) {
+        if (param.acao) {
+            $state.go(param.acao);
+        }
+      });
+    };
+
+
   });
 
+
+  /**
+   * PERFIL/Personagem CONTROLLER
+   */
   app.controller('perfilCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
     console.log("perfilCtrl");
     $scope.seitas = ["Camarilla", "Sabbat", "Independente"];

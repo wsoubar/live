@@ -2,24 +2,27 @@
   <h1 class="title">Login</h1>
 </div>
 <div id="login" class="list padding">
-  <form ng-submit="emailLogin(loginData)">
-    <label class="item item-input">
-    <span class="input-label">Email</span>
-          <input type="email" placeholder="joao@email.com" ng-model="loginData.email">
-        </label>
-    <label class="item item-input">
-    <span class="input-label">Senha</span>
-          <input type="password" placeholder="senha" ng-model="loginData.password">
-        </label>
+  <form name="loginForm" ng-submit="emailLogin(loginData)" novalidate>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Email</span>
+      <input type="email" name="email" placeholder="joao@email.com" ng-model="loginData.email" required>
+      <p style="color: red" ng-show="loginForm.email.$error.required && !loginForm.email.$pristine">* Email é obrigatório</p>
+      <p style="color: red" ng-show="loginForm.email.$invalid && !loginForm.email.$pristine">* Email inválido</p>
+    </label>
+    <label class="item item-input item-stacked-label">
+      <span class="input-label">Senha</span>
+      <input type="password" name="pass" placeholder="senha" ng-model="loginData.password" required>
+      <p style="color: red" ng-show="loginForm.pass.$error.required && !loginForm.pass.$pristine" >* Senha é obrigatória</p>
+    </label>
     <label class="item">
-          <button class="button button-block button-positive" type="submit">Entrar</button>
-        </label>
+      <button class="button button-block button-positive" type="submit" ng-disabled="loginForm.$invalid" >Entrar</button>
+    </label>
 
     <div class="item">
       <p>Ainda não possui login? <a ui-sref="signup">Cadastre-se.</a></p>
     </div>
     <div class="item text-right">
-      <p>Esqueceu sua senha? <a>Clique aqui.</a></p>
+      <p>Esqueceu sua senha? <a ui-sref="forgetpass">Clique aqui.</a></p>
     </div>
   </form>
 </div>

@@ -39,6 +39,12 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     controller: 'signupCtrl'
   })
 
+  .state('forgetpass', {
+    url: '/forgetpass',
+    templateUrl: 'templates/forgetpass.html',
+    controller: 'forgetpassCtrl'
+  })
+
   .state('perfil', {
     url: '/perfil',
     templateUrl: 'templates/perfil.html',
