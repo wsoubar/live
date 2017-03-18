@@ -1,7 +1,7 @@
 <div class="bar bar-header bar-assertive">
   <h1 class="title">Personagem</h1>
 </div>
-<form name="formp" ng-submit="registrar()">
+<form name="formp" ng-submit="registrar(p)">
 
 <div id="perfil" class="list padding">
   <label class="item item-input item-stacked-label">
@@ -13,7 +13,7 @@
     <div class="input-label">Seita</div>
     <select name="seita" ng-model="p.seita">
       <option selected>Selecione</option>
-      <option ng-repeat="seita in seitas">{{seita}}</option>
+      <option ng-repeat="seita in seitas">{{seita.nome}}</option>
     </select>
   </label>
 
@@ -21,14 +21,16 @@
     <div class="input-label">Clã</div>
     <select name="clan" ng-model="p.clan">
       <option selected>Selecione</option>
-      <option ng-repeat="clan in clans">{{clan}}</option>
+      <option ng-repeat="clan in clans">{{clan.clan}}</option>
     </select>
   </label>
 
+<!--
   <label class="item item-input item-stacked-label">
     <span class="input-label">História</span>
     <textarea rows="3" placeholder="Cole aqui a sua história..."></textarea>
   </label>
+-->
 </div>
 
   <div class="list padding">

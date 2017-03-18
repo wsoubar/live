@@ -136,14 +136,49 @@
   /**
    * PERFIL/Personagem CONTROLLER
    */
-  app.controller('perfilCtrl', function ($scope, $stateParams, $localStorage, $firebaseAuth, $state) {
+  app.controller('perfilCtrl', function ($scope, $stateParams, $localStorage, $state, $firebaseObject, clans, seitas) {
     console.log("perfilCtrl");
-    $scope.seitas = ["Camarilla", "Sabbat", "Independente"];
-    $scope.clans = ["Brujah", "Gangrel", "Malkaviano", "Nosferatu", "Toreador", "Tremere", "Ventrue"];
+    $scope.seitas = seitas;
+    $scope.clans = clans;
+    $scope.p = {};
     
-    $scope.registrar = function (params) {
-      console.log("registrar perfil");
-        $state.go("app.home");
+    console.log(clans);
+
+    $scope.registrar = function (personagem) {
+      console.log("personagem: " + JSON.stringify(personagem));
+      //var idRef = personagemRef.child("wsoubar@gmail.com");
+      var ref = firebase.database().ref().child("personagem").push();
+      var obj = $firebaseObject(ref);
+      obj.nome = personagem.nome;
+      obj.seita = personagem.seita;
+      obj.clan = personagem.clan;
+      
+      obj.$save().then(function(ref) {
+        ref.key === obj.$id; // true
+        console.log('Salvo');
+      }, function(error) {
+        console.log("Error:", error);
+      });      
+
+
+
+        //$state.go("app.home");
+    };
+  });
+
+
+  /**
+   * PERFIL/Personagem CONTROLLER
+   */
+  app.controller('dadosCtrl', function ($scope, $stateParams, $localStorage, $state, $firebaseObject, clans, seitas) {
+    console.log("dadosCtrl");
+    $scope.params = {modificador: 0, sucessos: 1, dificuldade: 7, paradadedados: 7};
+
+    $scope.rolar = function (params) {
+        $scope.mostraresultado = true;
+        $scope.sucesso = true;
+        $scope.resultadodados = '3 - 8 - 6 - 7 - 7 - 10 - 1';
+        $scope.resultado = 'SUCESSO';
     };
   });
 
@@ -153,5 +188,24 @@
       return $firebaseAuth();
     }
   ]);
+
+
+  app.factory("clans", ["$firebaseArray", 
+    function($firebaseArray) {
+      var ref = firebase.database().ref().child("clanlist");
+      var query = ref.orderByChild("clan");
+      return $firebaseArray(query);
+    }
+  ]);
+
+  app.factory("seitas", ["$firebaseArray", 
+    function($firebaseArray) {
+      var ref = firebase.database().ref().child("seita");
+      // var query = clanlist.limitToLast(40);
+      return $firebaseArray(ref);
+    }
+  ]);
+
+  
 
 })();

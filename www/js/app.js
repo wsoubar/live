@@ -67,6 +67,16 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     }
   })
 
+  .state('app.dados', {
+    url: '/dados',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/dados.html',
+    controller: 'dadosCtrl'
+      }
+    }
+  })
+
   .state('app.clanchat', {
     url: '/clanchat/:clanid',
     views: {
