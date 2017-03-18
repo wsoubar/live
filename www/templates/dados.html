@@ -4,7 +4,6 @@
     <div id="resultado" style="height: 100px"> 
       <button class="button button-full button-{{sucesso? 'balanced':'assertive'}}" style="height: 100px" ng-show="mostraresultado">
           <span ng-bind="resultadodados" style="font-size: 30px"></span><br/>
-          <span style="font-size: 30px">{{resultado}}</span>
       </button>
     </div>
     <div class="list">
@@ -14,7 +13,7 @@
       </div>  
       <div class="item range range-positive">
         <i class="icon ion-ios-minus-outline"></i>
-        <input type="range" name="volume" min="0" max="10" ng-model="params.modificador">
+        <input type="range" name="volume" min="0" max="10" value="{{params.modificador}}" ng-model="params.modificador">
         <i class="icon ion-ios-plus-outline"></i>
       </div>
       <div class="item item-divider">
@@ -23,7 +22,7 @@
       </div>  
       <div class="item range range-positive">
         <i class="icon ion-ios-minus-outline"></i>
-        <input type="range" name="volume" min="1" max="15" ng-model="params.sucessos">
+        <input type="range" name="volume" min="1" max="15" value="{{params.sucessos}}" ng-model="params.sucessos">
         <i class="icon ion-ios-plus-outline"></i>
       </div>
       <div class="item item-divider">
@@ -32,7 +31,7 @@
       </div>  
       <div class="item range range-positive">
         <i class="icon ion-ios-minus-outline"></i>
-        <input type="range" name="volume" min="1" max="10" ng-model="params.dificuldade">
+        <input type="range" name="volume" min="1" max="10" value="{{params.dificuldade}}" ng-model="params.dificuldade">
         <i class="icon ion-ios-plus-outline"></i>
       </div>
       <div class="item item-divider">
@@ -41,7 +40,7 @@
       </div>  
       <div class="item range range-positive">
         <i class="icon ion-ios-minus-outline"></i>
-        <input type="range" name="volume" min="1" max="15" ng-model="params.paradadedados">
+        <input type="range" name="volume" min="1" max="15" value="{{params.paradadedados}}" ng-model="params.paradadedados">
         <i class="icon ion-ios-plus-outline"></i>
       </div>
       <div class="padding">
