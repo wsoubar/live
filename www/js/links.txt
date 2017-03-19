@@ -15,3 +15,12 @@ https://github.com/firebase/quickstart-js/blob/master/auth/email.html
 keystore apk
 https://github.com/hughred22/YouTube-Video-Listing-Ionic-Mobile-App/wiki/Preparing-for-Release-and-Publishing-Your-Ionic-App
 http://ionicframework.com/docs/guide/publishing.html
+
+
+{
+  "rules": {
+    "dinosaurs": {
+      ".indexOn": ["height", "length"]
+    }
+  }
+}

@@ -3,7 +3,7 @@
 
   var app = angular.module('login', []);
 
-  app.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+  app.controller('menuCtrl', function ($scope, $localStorage, $state) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -12,29 +12,67 @@
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
+      console.log("personagem", $localStorage.personagem);
+      $scope.personagem = $localStorage.personagem;
+
+      $scope.logout = function () {
+          var r = confirm("Deseja sair??");
+          if (r == true) {
+              firebase.auth().signOut().then(function() {
+                  console.log('signed out!');
+                  delete $localStorage.user; 
+                  delete $localStorage.personagem;
+                  //alert('Logout realizado com sucesso');
+                  $state.go('login');
+              }, function(error) {
+                  console.error('Sign Out Error', error);
+                  alert('Ocorreu algum erro ao tentar sair!!!');
+              });
+          } 
+      };
+
+
+  });
+
+  app.controller('autologinCtrl', function ($scope, $localStorage, $state) {
+    if ($localStorage.user) {
+      $state.go('app.home');
+    } else {
+      $state.go('login');
+    }
   });
 
   /**
    * LOGIN CONTROLLER
    */
-  app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, Auth, $state) {
+  app.controller('loginCtrl', function ($scope, $stateParams, $localStorage, Auth, $state, personagemService, $ionicLoading) {
     // $localStorage.signin = 'no';
     console.log('login? ');
-/*
-    Auth.$onAuthStateChanged(function(firebaseUser) {
-      if (firebaseUser) {
-        console.log("Signed in as:", firebaseUser.uid);
-        $state.go("app.home");
-      } else {
-        console.log("Signed out");
-      }
-    });
-*/
+
     $scope.emailLogin = function (user) {
       console.log('emailLogin');
+
+      $ionicLoading.show({
+        template: 'aguarde...',
+        duration: 10000
+      }).then(function(){
+        console.log("The loading indicator is now displayed");
+      });
+
       Auth.$signInWithEmailAndPassword(user.email, user.password).then(function(firebaseUser) {
-        console.log("Signed in as:" + JSON.stringify(firebaseUser));
-        $state.go("app.home");
+        console.log("Signed in as:" + firebaseUser.uid);
+        $localStorage.user = firebaseUser;
+
+        var personagem = personagemService.personagemByUserID(firebaseUser.uid);
+        personagem.$loaded().then(function () {
+          console.log(personagem[0]);
+          $localStorage.personagem = personagem[0];
+          $ionicLoading.hide().then(function(){
+            console.log("The loading indicator is now hidden");
+          });
+          $state.go("app.home");
+        });
+
       }).catch(function(error) {
         console.error("Authentication failed:", error);
         alert('Login falhou!');
@@ -70,7 +108,7 @@
           console.log("Erro ao atualizar perfil", error);
         });
 
-        //$localStorage.firebaseUser = firebaseUser;
+        $localStorage.userid = firebaseUser.uid;
         // firebaseUser.sendEmailVerification();
         //alert("Seu email foi regsitrado com sucesso. Agora cadastre os dados do seu personagem. ");
         $scope.showAlert();
@@ -152,17 +190,16 @@
       obj.nome = personagem.nome;
       obj.seita = personagem.seita;
       obj.clan = personagem.clan;
+      obj.userid = $localStorage.userid;
       
       obj.$save().then(function(ref) {
         ref.key === obj.$id; // true
         console.log('Salvo');
+        $state.go("login");
       }, function(error) {
         console.log("Error:", error);
+        alert('Aconteceu um erro. Tente mais tarde.');
       });      
-
-
-
-        //$state.go("app.home");
     };
   });
 
@@ -175,20 +212,20 @@
     $scope.params = {modificador: 0, sucessos: 1, dificuldade: 7, paradadedados: 7};
 
     $scope.rolar = function (params) {
-      console.log('rolar');
+      //console.log('rolar');
       var resultadodados = '';
       var sucessos = 0;
-      console.log(params);
+      //console.log(params);
       for (var i = 0; i < parseInt(params.paradadedados); i++) {
-        console.log('no for');
+        //console.log('no for');
         var r = Math.floor(Math.random() * 10) + 1;
-        var df = parseInt(params.dificuldade) + parseInt(params.modificador);
-        console.log('dificuldade ' + df)
+        var df = parseInt(params.dificuldade);
+        // console.log('dificuldade ' + df)
         if (r >= df) {
           sucessos++;
-          console.log('add sucesso ' + r);
-        } else {
-          console.log('sem sucesso sucesso ' + r);
+          //console.log('add sucesso ' + r);
+        //} else {
+          //console.log('sem sucesso sucesso ' + r);
         }
         if (i==0) {
           resultadodados = resultadodados + r;
@@ -196,7 +233,7 @@
           resultadodados = resultadodados + '-' + r ;
         }
       }
-      console.log('sucessos '+sucessos);
+      //console.log('sucessos '+sucessos);
 
       $scope.mostraresultado = true;
       $scope.resultadodados = resultadodados;
@@ -232,6 +269,24 @@
       var ref = firebase.database().ref().child("seita");
       // var query = clanlist.limitToLast(40);
       return $firebaseArray(ref);
+    }
+  ]);
+
+  app.factory("personagemService", ["$firebaseArray", "$firebaseObject",
+    function($firebaseArray, $firebaseObject) {
+
+      var factory = {
+        personagemByUserID : personagemByUserID
+      };
+      
+      return factory;
+
+      function personagemByUserID(userid) {
+          var ref = firebase.database().ref().child("personagem").orderByChild("userid").equalTo(userid);
+          var query = ref.feedsRef.limitToLast(50);
+          var personagem = $firebaseArray(query);
+          return personagem;
+      }
     }
   ]);
 

@@ -1,31 +1,41 @@
 (function () {
   'use strict';
 
-  var app = angular.module('clanchat', []);
+  var app = angular.module('chat', []);
 
-  app.controller('clanChatCtrl', function ($rootScope, $scope, $stateParams, $localStorage, $firebaseArray, $state) {
-        console.log("clanChatCtrl...");
-        var messagesRef = firebase.database().ref().child("chat").child("setita");
-        // download the data from a Firebase reference into a (pseudo read-only) array
-        // all server changes are applied in realtime
-        $scope.messages = $firebaseArray(messagesRef);
-        // create a query for the most recent 25 messages on the server
+  app.controller('chatCtrl', function ($rootScope, $scope, $stateParams, $localStorage, $firebaseArray, $state) {
+        $scope.enviarMsg = false;
+        $scope.formData = {};
+        var personagem = $localStorage.personagem;
+        var chatid = $stateParams.chatid;
+        $scope.chatid = chatid;
         
-        /*
-        var query = messagesRef.orderByChild("timestamp").limitToLast(25);
-        // the $firebaseArray service properly handles database queries as well
-        $scope.filteredMessages = $firebaseArray(query);
-        $scope.filteredMessages.$loaded().then(function(data){
+        console.log("chat: " + chatid);
+
+        var messagesRef = firebase.database().ref().child("chat").child(chatid);
+        $scope.mensagens = $firebaseArray(messagesRef);
+        $scope.mensagens.$loaded().then(function(data){
             console.log("carregado array..");
         });
-        */
+        
 
   //    var list = $firebaseArray(ref);
-      $scope.messages.$add({ mensagem: "minha mensagem teste", data: Date.now() }).then(function(ref) {
-        var id = ref.key;
-        console.log("added record with id " + id);
-        $scope.messages.$indexFor(id); // returns location in the array
-      });
+      $scope.add = function (mensagem) {
+        if (mensagem) {
+          $scope.mensagens.$add({
+            mensagem: mensagem, 
+            data: Date.now(),
+            nome: personagem.nome,
+            userid: personagem.userid})
+          .then(function(ref) {
+            $scope.formData.mensagem = '';
+          });
+        }
+      }
+
+      $scope.mostraEnvio = function () {
+        $scope.enviarMsg = !$scope.enviarMsg;
+      }
 
   });
 

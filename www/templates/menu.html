@@ -21,22 +21,24 @@
         <li class="item item-image">
             <img ng-src="{{user.claImage ? user.claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
         </li>
+<!--
         <div class="item item-avatar" ng-show="user">
           <img ng-src="{{user.claImage}}">
           <h2>{{user.nome}}</h2>
           <p>{{user.jogador}}</p>
         </div>
-        <a class="item item-icon-left" menu-close ui-sref="perfil">
+-->
+        <a class="item item-icon-left" menu-close ui-sref="app.editPersonagem">
           <i class="icon ion-person"></i>
-            Meu Personagem
+            <span ng-bind="personagem.nome"></span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.clanchat({clanid: 'Setitas'})">
+        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})">
           <i class="icon ion-chatbubbles"></i>
-            Chat do Clã
+            {{personagem.clan}}
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.npcs">
+        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.seita})">
           <i class="icon ion-chatbubbles"></i>
-            Chat da Seita
+            {{personagem.seita}}
         </a>      
         <a class="item item-icon-left" menu-close ui-sref="app.criacao">
           <i class="icon ion-android-star"></i>
@@ -58,7 +60,7 @@
           <i class="icon ion-chatbubble-working"></i>
             Falar com o Narrador
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="login">
+        <a class="item item-icon-left" menu-close ng-click="logout()">
           <i class="icon ion-log-out"></i>
           Sair
         </a>      
