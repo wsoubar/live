@@ -96,6 +96,16 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     }
   })
 
+  .state('app.personagens', {
+    url: '/personagens',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/personagens.html',
+        controller: 'personagensCtrl'
+      }
+    }
+  })
+
   .state('app.dados', {
     url: '/dados',
     views: {

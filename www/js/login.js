@@ -75,7 +75,10 @@
 
       }).catch(function(error) {
         console.error("Authentication failed:", error);
-        alert('Login falhou!');
+        $ionicLoading.hide().then(function(){
+          console.log("The loading indicator is now hidden");
+        });
+        alert('Login falhou!' + error.message);
       });
 
 
@@ -283,8 +286,8 @@
 
       function personagemByUserID(userid) {
           var ref = firebase.database().ref().child("personagem").orderByChild("userid").equalTo(userid);
-          var query = ref.feedsRef.limitToLast(50);
-          var personagem = $firebaseArray(query);
+          //var query = ref.feedsRef.limitToLast(50);
+          var personagem = $firebaseArray(ref);
           return personagem;
       }
     }

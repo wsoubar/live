@@ -6,6 +6,8 @@ https://gonehybrid.com/build-your-first-mobile-app-with-the-ionic-framework-part
 firebase
 https://console.firebase.google.com/project/thelive-f8cb5/authentication/users
 https://firebase.google.com/docs/auth/web/manage-users?hl=pt-br
+https://github.com/firebase/quickstart-js/blob/master/storage/index.html
+
 
 angularfire
 https://github.com/firebase/angularfire/blob/master/docs/guide/user-auth.md
