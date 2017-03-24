@@ -1,10 +1,11 @@
 <ion-view view-title="Meu personagem">
     <ion-nav-buttons side="right">
-        <button class="button" ng-click="mostraEnvio()" >
-          <i class="icon ion-compose"></i>
+        <button class="button" ng-click="salvar()" >
+          <i class="icon ion-ios-cloud-upload"></i>
         </button>
     </ion-nav-buttons>
     <ion-content>
+        <form name="formplanilha">
         <div class="item item-divider">
             <b><span ng-bind="personagem.nome"></span><br/></b>
             <span ng-bind="personagem.clan"></span> - <span ng-bind="personagem.seita"></span><br/>
@@ -13,22 +14,24 @@
         <div id="tab1" ng-show="tab==1">
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Planilha</span>
-                <textarea style="height: 100vh" placeholder="Edite sua planilha aqui. Ou então copie e cole."></textarea>
+                <textarea ng-model="p.planilha" style="height: 100vh; padding-bottom: 100px;" placeholder="Edite sua planilha aqui. Ou então copie e cole."></textarea>
             </label>
         </div>
         <div id="tab1" ng-show="tab==2">
             <label class="item item-input item-stacked-label">
                 <span class="input-label">História</span>
-                <textarea style="height: 100vh" placeholder="Escreva aqui a história real do seu personagem."></textarea>
+                <textarea ng-model="p.historia" style="height: 100vh; padding-bottom: 100px;" placeholder="Escreva aqui a história real do seu personagem."></textarea>
             </label>
         </div>
         <div id="tab1" ng-show="tab==3">
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Rumores</span>
-                <textarea style="height: 100vh" placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem."></textarea>
+                <textarea ng-model="p.rumores" style="height: 100vh; padding-bottom: 100px;" placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem."></textarea>
             </label>
         </div>
-        <div class="tabs-striped tabs-color-assertive">
+        </form>
+  </ion-content>
+        <div class="row tabs-striped tabs-color-assertive">
             <div class="tabs tabs-icon-top">
                 <a class="tab-item {{tab==1?'active': ''}}" ng-click="tab=1">
                     <i class="icon ion-clipboard"></i>
@@ -45,5 +48,4 @@
             </div>
 
         </div>
-  </ion-content>
 </ion-view>
