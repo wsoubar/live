@@ -29,6 +29,12 @@
                 <textarea ng-model="p.rumores" style="height: 100vh; padding-bottom: 100px;" placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem."></textarea>
             </label>
         </div>
+        <div id="tab1" ng-show="tab==4">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Antecedentes</span>
+                <textarea ng-model="p.antecedentes" style="height: 100vh; padding-bottom: 100px;" placeholder="Espaço para detalhamento dos antecedentes."></textarea>
+            </label>
+        </div>
         </form>
   </ion-content>
         <div class="row tabs-striped tabs-color-assertive">
@@ -44,6 +50,10 @@
                 <a class="tab-item {{tab==3?'active': ''}}" ng-click="tab=3">
                     <i class="icon ion-document-text"></i>
                     Rumores
+                </a>
+                <a class="tab-item {{tab==4?'active': ''}}" ng-click="tab=4">
+                    <i class="icon ion-leaf"></i>
+                    Antecedentes
                 </a>
             </div>
 

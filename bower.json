@@ -8,6 +8,7 @@
     "ngCordova": "^0.1.27-alpha",
     "angularfire": "^2.3.0",
     "ngstorage": "^0.3.11",
-    "firebase": "^3.6.9"
+    "firebase": "^3.6.9",
+    "angular-timeline": "^1.7.0"
   }
 }

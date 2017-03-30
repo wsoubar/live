@@ -112,6 +112,7 @@
         });
 
         $localStorage.userid = firebaseUser.uid;
+        $localStorage.jogador = user.nome;
         // firebaseUser.sendEmailVerification();
         //alert("Seu email foi regsitrado com sucesso. Agora cadastre os dados do seu personagem. ");
         $scope.showAlert();
@@ -194,6 +195,10 @@
       obj.seita = personagem.seita;
       obj.clan = personagem.clan;
       obj.userid = $localStorage.userid;
+      obj.dataCriacao = Date.now();
+      obj.aprovado = 'N';
+      obj.jogador = $localStorage.jogador;
+      obj.narrador = 'N';
       
       obj.$save().then(function(ref) {
         ref.key === obj.$id; // true
@@ -279,10 +284,18 @@
     function($firebaseArray, $firebaseObject) {
 
       var factory = {
-        personagemByUserID : personagemByUserID
+        personagemByUserID : personagemByUserID,
+        personagens : personagens
       };
       
       return factory;
+
+      function personagens() {
+          var ref = firebase.database().ref().child("personagem").orderByChild("nome");
+          var personagens = $firebaseArray(ref);
+          console.log('personagemService::personagens');
+          return personagens;
+      }
 
       function personagemByUserID(userid) {
           var ref = firebase.database().ref().child("personagem").orderByChild("userid").equalTo(userid);

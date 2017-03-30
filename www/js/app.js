@@ -116,6 +116,16 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     }
   })
 
+  .state('app.timeline', {
+    url: '/timeline',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/timeline.html',
+        controller: 'timelineCtrl'
+      }
+    }
+  })
+
   .state('app.chat', {
     url: '/chat/:chatid',
     views: {
