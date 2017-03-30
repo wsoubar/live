@@ -194,6 +194,8 @@
       obj.nome = personagem.nome;
       obj.seita = personagem.seita;
       obj.clan = personagem.clan;
+      obj.geracao = 13;
+      obj.status = 0;
       obj.userid = $localStorage.userid;
       obj.dataCriacao = Date.now();
       obj.aprovado = 'N';

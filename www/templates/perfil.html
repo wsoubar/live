@@ -11,8 +11,8 @@
 
   <label class="item item-input item-select">
     <div class="input-label">Seita</div>
-    <select name="seita" ng-model="p.seita">
-      <option selected>Selecione</option>
+    <select name="seita" ng-model="p.seita" >
+<!--      <option selected>Selecione</option> -->
       <option ng-repeat="seita in seitas">{{seita.nome}}</option>
     </select>
   </label>
@@ -20,8 +20,8 @@
   <label class="item item-input item-select">
     <div class="input-label">Clã</div>
     <select name="clan" ng-model="p.clan">
-      <option selected>Selecione</option>
-      <option ng-repeat="clan in clans">{{clan.clan}}</option>
+      <!-- <option selected>Selecione</option> -->
+      <option ng-repeat="clan in clans | filter: {seita: p.seita}">{{clan.clan}}</option>
     </select>
   </label>
 
