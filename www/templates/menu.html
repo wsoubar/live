@@ -34,11 +34,11 @@
         </a>      
         <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})">
           <i class="icon ion-chatbubbles"></i>
-            {{personagem.clan}}
+            <span ng-bind="personagem.clan"></span>
         </a>      
         <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.seita})">
           <i class="icon ion-chatbubbles"></i>
-            {{personagem.seita}}
+            <span ng-bind="personagem.seita"></span>
         </a>    
         <!--  
         <a class="item item-icon-left" menu-close ui-sref="app.criacao">

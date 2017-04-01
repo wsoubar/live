@@ -35,8 +35,10 @@
   });
 
   app.controller('autologinCtrl', function ($scope, $localStorage, $state) {
-    if ($localStorage.user) {
+    if ($localStorage.user && $localStorage.personagem) {
       $state.go('app.home');
+    } else if ($localStorage.userid && $localStorage.jogador) {
+      $state.go('perfil');
     } else {
       $state.go('login');
     }
@@ -205,6 +207,8 @@
       obj.$save().then(function(ref) {
         ref.key === obj.$id; // true
         console.log('Salvo');
+        delete $localStorage.userid;
+        delete $localStorage.jogador;
         $state.go("login");
       }, function(error) {
         console.log("Error:", error);
@@ -225,6 +229,7 @@
       //console.log('rolar');
       var resultadodados = '';
       var sucessos = 0;
+      var falhasCriticas = 0;
       //console.log(params);
       for (var i = 0; i < parseInt(params.paradadedados); i++) {
         //console.log('no for');
@@ -237,6 +242,9 @@
         //} else {
           //console.log('sem sucesso sucesso ' + r);
         }
+        if (r == 1) {
+          falhasCriticas++;
+        }
         if (i==0) {
           resultadodados = resultadodados + r;
         } else {
@@ -247,7 +255,8 @@
 
       $scope.mostraresultado = true;
       $scope.resultadodados = resultadodados;
-      if (sucessos >= parseInt(params.sucessos) ) {
+      var totalSucessos = sucessos - falhasCriticas;
+      if (totalSucessos >= parseInt(params.sucessos) ) {
         $scope.sucesso = true;
         $scope.resultado = 'SUCESSO';
       } else {
@@ -282,6 +291,14 @@
     }
   ]);
 
+/*
+  app.factory("citacoes", ["$firebaseArray", 
+    function($firebaseArray) {
+      var ref = firebase.database().ref().child("citacoes");
+      return $firebaseArray(ref);
+    }
+  ]);
+*/
   app.factory("personagemService", ["$firebaseArray", "$firebaseObject",
     function($firebaseArray, $firebaseObject) {
 

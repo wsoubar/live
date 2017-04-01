@@ -23,6 +23,10 @@
             $scope.p = personagem;
             console.log('personagem carregado');
             $ionicLoading.hide();
+        }).catch(function (error) {
+            console.error("Error:", error);
+            $scope.p = $localStorage.personagem;
+            $ionicLoading.hide();
         });
 
 
@@ -30,6 +34,8 @@
             $scope.p.$save().then(function (ref) {
                 var ok = (ref.key === $scope.p.$id); // true
                 console.log('sucesso? ' + ok);
+                console.log('p ', $scope.p);
+                $localStorage.personagem = $scope.p;
 
                 $ionicLoading.show({
                     template: 'Informações atualizadas com sucesso.',
@@ -40,8 +46,64 @@
                 
             }, function (error) {
                 console.log("Error:", error);
+                $ionicLoading.show({
+                    template: 'Erro ao tentar atualizar informações.',
+                    duration: 1500
+                }).then(function(){
+                    console.log("The loading indicator is now displayed");
+                });
             });
         }
+
+    });
+
+    app.controller('homeCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray) {
+        /*
+        var citacoes = [
+            {
+                citacao: "Portanto, com a mesma certeza pela qual a pedra cai para a terra, o lobo faminto enterra suas presas na carne de sua vítima, alheio ao fato de que ele próprio é tanto o destruidor como o destruído.",
+                autor: "Schopenhauer"
+            }
+        ];
+*/
+        $ionicLoading.show({
+            template: 'carregando...',
+            duration: 20000
+        }).then(function(){
+            console.log("The loading indicator is now displayed");
+        });
+        
+        var ref = firebase.database().ref().child("citacoes");
+        var citacoes = $firebaseArray(ref);
+        citacoes.$loaded().then(function (lista) {
+            console.log('Home-citacoes ', lista.length);
+            var aleatorio = Math.floor(Math.random() * lista.length);
+            console.log('ale ' + aleatorio);
+            $scope.q = lista[aleatorio];
+            $ionicLoading.hide();
+            
+        }).catch(function (error) {
+            console.log('erro carregando citacoes ', error);
+        });
+
+
+        if (false) {
+            angular.forEach(citacoes, function (ct) {
+                var ref = firebase.database().ref().child("citacoes").push();
+                var obj = $firebaseObject(ref);
+                obj.citacao = ct.citacao;
+                obj.autor = ct.autor;
+
+                obj.$save().then(function(ref) {
+                    ref.key === obj.$id; // true
+                    console.log('citacao salva');
+                }, function(error) {
+                    console.log("Error:", error);
+                });      
+                
+            });
+        }
+
 
     });
 

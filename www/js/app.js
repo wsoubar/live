@@ -81,7 +81,8 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/home.html'
+        templateUrl: 'templates/home.html',
+        controller: 'homeCtrl'
       }
     }
   })
