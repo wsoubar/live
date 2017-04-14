@@ -12,7 +12,7 @@
         
         console.log("chat: " + chatid);
 
-        var messagesRef = firebase.database().ref().child("chat").child(chatid);
+        var messagesRef = firebase.database().ref().child("chats").child(chatid);
         $scope.mensagens = $firebaseArray(messagesRef);
         $scope.mensagens.$loaded().then(function(data){
             console.log("carregado array..");

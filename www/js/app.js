@@ -127,6 +127,16 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
     }
   })
 
+  .state('app.admin', {
+    url: '/amin',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/admin.html',
+        controller: 'adminCtrl'
+      }
+    }
+  })
+
   .state('app.chat', {
     url: '/chat/:chatid',
     views: {

@@ -1,0 +1,25 @@
+<ion-view view-title="Administração">
+    <ion-content>
+        <div id="filtro" class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Pesquisar" ng-model="filtro.$">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Aprovado?" ng-model="filtro.aprovado">
+            </label>
+        </div>
+        <div class="card" ng-repeat="p in personagens | orderBy: ['seita','clan','nome'] | filter: filtro ">
+
+            <a class="item item-thumbnail-left" href="#">
+                <img src="img/clanlogos/caitiff.png">
+                <h2><b><span ng-bind="p.nome"></span></b></h2>
+                <p><span ng-bind="p.seita"></span> - <span ng-bind="p.clan"></span></p>
+                <p>Jogador: <b><span ng-bind="p.jogador"></span></b></p>
+                <p>Aprovado: <b><span ng-bind="p.aprovado"></span></b></p>
+            </a>
+
+        </div>
+    </ion-content>
+</ion-view>

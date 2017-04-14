@@ -32,11 +32,11 @@
           <i class="icon ion-person"></i>
             <span ng-bind="personagem.nome"></span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})">
+        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>
             <span ng-bind="personagem.clan"></span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.seita})">
+        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.seita})" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>
             <span ng-bind="personagem.seita"></span>
         </a>    
@@ -60,12 +60,10 @@
           <i class="icon ion-cube"></i>
             Rolador de Dados
         </a>      
-        <!--
-        <a class="item item-icon-left" menu-close ui-sref="app.planilha">
-          <i class="icon ion-chatbubble-working"></i>
-            Falar com o Narrador
+        <a class="item item-icon-left" menu-close ui-sref="app.admin" ng-show="personagem.narrador=='S'">
+          <i class="icon ion-android-settings"></i>
+            Administração
         </a>
-        -->      
         <a class="item item-icon-left" menu-close ng-click="logout()">
           <i class="icon ion-log-out"></i>
           Sair

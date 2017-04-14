@@ -148,4 +148,21 @@
 
     });
 
+    app.controller('adminCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray, personagemService) {
+        $scope.personagens = [];
+        $ionicLoading.show({
+            template: 'carregando...',
+            duration: 20000
+        }).then(function(){
+            console.log("The loading indicator is now displayed");
+        });
+
+        $scope.personagens = personagemService.personagens();
+
+        $scope.personagens.$loaded().then(function () {
+            console.log('array de personagens carregado');
+            $ionicLoading.hide();
+        });
+    });
+
 })();
