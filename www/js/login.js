@@ -191,7 +191,7 @@
     $scope.registrar = function (personagem) {
       console.log("personagem: " + JSON.stringify(personagem));
       //var idRef = personagemRef.child("wsoubar@gmail.com");
-      var ref = firebase.database().ref().child("personagem").push();
+      var ref = firebase.database().ref().child("personagens").push();
       var obj = $firebaseObject(ref);
       obj.nome = personagem.nome;
       obj.seita = personagem.seita;
@@ -310,14 +310,14 @@
       return factory;
 
       function personagens() {
-          var ref = firebase.database().ref().child("personagem").orderByChild("nome");
+          var ref = firebase.database().ref().child("personagens").orderByChild("nome");
           var personagens = $firebaseArray(ref);
           console.log('personagemService::personagens');
           return personagens;
       }
 
       function personagemByUserID(userid) {
-          var ref = firebase.database().ref().child("personagem").orderByChild("userid").equalTo(userid);
+          var ref = firebase.database().ref().child("personagens").orderByChild("userid").equalTo(userid);
           //var query = ref.feedsRef.limitToLast(50);
           var personagem = $firebaseArray(ref);
           return personagem;

@@ -18,6 +18,8 @@ keystore apk
 https://github.com/hughred22/YouTube-Video-Listing-Ionic-Mobile-App/wiki/Preparing-for-Release-and-Publishing-Your-Ionic-App
 http://ionicframework.com/docs/guide/publishing.html
 
+http://stackoverflow.com/questions/40206968/why-my-ionic-app-fcmplugin-onnotification-does-not-get-called-for-incoming-pus
+http://stackoverflow.com/questions/37653251/firebase-cloud-messaging-with-ionic-app
 
 {
   "rules": {

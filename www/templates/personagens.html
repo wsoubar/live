@@ -1,12 +1,12 @@
 <ion-view view-title="Personagens" id="npcs">
   <ion-content>
-  <div class="card" ng-repeat="p in personagens | filter: {aprovado: 'S'}">
+  <div class="card" ng-repeat="p in personagens | filter: filtro">
 
     <div class="item item-divider">
         <b><span ng-bind="p.nome"></span><br/></b>
     </div>
     <div class="item item-body">
-        <p><span ng-bind="p.rumores"></span></p>
+        <span ng-bind="p.rumores"></span>
     </div>
 
   </div>

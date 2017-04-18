@@ -1,0 +1,15 @@
+{
+  "rules": {
+ 
+    "chat" : {
+      ".read": false,
+      ".write": false
+    },
+
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "personagem" : {
+      ".indexOn": ["userid"]
+    }
+  }
+}

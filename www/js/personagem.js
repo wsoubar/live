@@ -16,7 +16,7 @@
         
         var pid = $localStorage.personagem.$id;
         console.log('personagem.$id', pid);
-        var ref = firebase.database().ref().child("personagem").child(pid);
+        var ref = firebase.database().ref().child("personagens").child(pid);
 
         var personagem = $firebaseObject(ref);
         personagem.$loaded().then(function () {
@@ -124,6 +124,7 @@
     });
 
     app.controller('personagensCtrl', function ($scope, $localStorage, $state, personagemService, $ionicLoading) {
+        $scope.filtro = {aprovado: 'S'};
         $scope.personagens = [];
         $ionicLoading.show({
             template: 'carregando...',
@@ -162,6 +163,11 @@
         $scope.personagens.$loaded().then(function () {
             console.log('array de personagens carregado');
             $ionicLoading.hide();
+        })
+        .catch(function (error) {
+            console.log("erro ao tentar carregar personagens", error);
+            $ionicLoading.hide();
+            alert('Ocorreu erro ao carregar os dados dos personagens.');
         });
     });
 

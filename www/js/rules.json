@@ -1,0 +1,35 @@
+{
+    "rules": {
+        "chat": {
+            ".read": false,
+            ".write": false
+        },
+        "personagem": {
+            ".read": false,
+            ".write": false
+        },
+        "chats": {
+            ".read": "auth != null",
+            ".write": "auth != null"
+        },
+        "citacoes": {
+            ".read": "auth != null",
+            ".write": "auth != null"
+        },
+        "clanlist": {
+            ".read": "auth != null",
+            ".write": false
+        },
+        "seita": {
+            ".read": "auth != null",
+            ".write": false
+        },
+        "personagens": {
+            ".indexOn": [
+                "userid"
+            ],
+            ".read": "auth != null",
+            ".write": "auth != null"
+        }
+    }
+}
