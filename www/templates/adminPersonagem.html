@@ -1,15 +1,41 @@
-{
-  "rules": {
- 
-    "chat" : {
-      ".read": false,
-      ".write": false
-    },
-
-    ".read": "auth != null",
-    ".write": "auth != null",
-    "personagem" : {
-      ".indexOn": ["userid"]
-    }
-  }
-}
+<ion-view view-title="Administrar Personagem">
+    <ion-content>
+      <div class="list card">
+        <div class="item item-thumbnail-left">
+            <img src="img/clanlogos/caitiff.png">
+            <h2><b><span ng-bind="admPersonagem.nome"></span></b></h2>
+            <p><span ng-bind="admPersonagem.seita"></span> - <span ng-bind="admPersonagem.clan"></span></p>
+            <p>Jogador: <b><span ng-bind="admPersonagem.jogador"></span></b></p>
+            <p>Aprovado: <b><span ng-bind="admPersonagem.aprovado"></span></b></p>
+            <div>
+              <button class="button button-positive" ng-show="admPersonagem.aprovado == 'N'" ng-click="aprovar()" >Aprovar</button>
+              <button class="button button-assertive" ng-show="admPersonagem.aprovado == 'S'" ng-click="reprovar()">Reprovar</button>
+            </div>
+        </div>
+        <div class="item item-divider" ng-click="shHistoria=!shHistoria">
+          História
+        </div>
+        <div class="item item-text-wrap" ng-show="shHistoria">
+          <pre>{{admPersonagem.historia ? admPersonagem.historia : 'História ainda não foi criada!'}}</pre>
+        </div>
+        <div class="item item-divider" ng-click="shPlanilha=!shPlanilha">
+          Planilha
+        </div>
+        <div class="item item-text-wrap" ng-show="shPlanilha">
+          <pre>{{admPersonagem.planilha ? admPersonagem.planilha : 'Planilha ainda não foi criada!'}}</pre>
+        </div>
+        <div class="item item-divider" ng-click="shRumores=!shRumores">
+          Rumores
+        </div>
+        <div class="item item-text-wrap" ng-show="shRumores">
+          <pre>{{admPersonagem.rumores ? admPersonagem.rumores : 'Rumores ainda não foram criados!'}}</pre>
+        </div>
+        <div class="item item-divider" ng-click="shAntec=!shAntec">
+          Antecedentes
+        </div>
+        <div class="item item-text-wrap" ng-show="shAntec">
+          <pre>{{admPersonagem.antecedentes ? admPersonagem.antecedentes : 'Antecedentes ainda não foram criados!'}}</pre>
+        </div>
+      </div>
+    </ion-content>
+</ion-view>

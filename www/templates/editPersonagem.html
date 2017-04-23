@@ -11,34 +11,67 @@
             <span ng-bind="personagem.clan"></span> - <span ng-bind="personagem.seita"></span><br/>
                         
         </div>
+        <div id="tab1" class="list" ng-show="tab==0">
+            <label class="item item-input item-stacked-label" >
+                <span class="input-label">Nome do personagem</span>
+                <input type="text" ng-model="p.nome" 
+                    ng-show="personagem.aprovado=='N'">
+                </textarea>
+                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.nome}}</pre>
+            </label>
+        </div>
         <div id="tab1" ng-show="tab==1">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Planilha</span>
-                <textarea ng-model="p.planilha" style="height: 100vh; padding-bottom: 100px;" placeholder="Edite sua planilha aqui. Ou então copie e cole."></textarea>
+            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                <span class="input-label"><b>Planilha</b></span>
+                <textarea ng-model="p.planilha" 
+                    style="height: 100vh; padding-bottom: 70px" 
+                    ng-show="personagem.aprovado=='N'"
+                    placeholder="Edite sua planilha aqui. Ou então copie e cole.">
+                </textarea>
+                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.planilha}}</pre>
             </label>
         </div>
         <div id="tab1" ng-show="tab==2">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">História</span>
-                <textarea ng-model="p.historia" style="height: 100vh; padding-bottom: 100px;" placeholder="Escreva aqui a história real do seu personagem."></textarea>
+            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                <span class="input-label"><b>História</b></span>
+                <textarea ng-model="p.historia" 
+                    style="height: 100vh; padding-bottom: 70px"  
+                    ng-show="personagem.aprovado=='N'"
+                    placeholder="Escreva aqui a história real do seu personagem.">
+                </textarea>
+                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.historia}}</pre>
             </label>
         </div>
         <div id="tab1" ng-show="tab==3">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Rumores</span>
-                <textarea ng-model="p.rumores" style="height: 100vh; padding-bottom: 100px;" placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem."></textarea>
+            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                <span class="input-label"><b>Rumores</b></span>
+                <textarea ng-model="p.rumores" 
+                    style="height: 100vh; padding-bottom: 70px"  
+                    ng-show="personagem.aprovado=='N'"
+                    placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem.">
+                </textarea>
+                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.rumores}}</pre>
             </label>
         </div>
         <div id="tab1" ng-show="tab==4">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Antecedentes</span>
-                <textarea ng-model="p.antecedentes" style="height: 100vh; padding-bottom: 100px;" placeholder="Espaço para detalhamento dos antecedentes."></textarea>
+            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                <span class="input-label"><b>Antecedentes</b></span>
+                <textarea ng-model="p.antecedentes" 
+                    style="height: 100vh; padding-bottom: 70px" 
+                    ng-show="personagem.aprovado=='N'"
+                    placeholder="Espaço para detalhamento dos antecedentes.">
+                </textarea>
+                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.antecedentes}}</pre>
             </label>
         </div>
         </form>
   </ion-content>
         <div class="row tabs-striped tabs-color-assertive">
             <div class="tabs tabs-icon-top">
+                <a class="tab-item {{tab==0?'active': ''}}" ng-click="tab=0">
+                    <i class="icon ion-card"></i>
+                    Geral 
+                </a>
                 <a class="tab-item {{tab==1?'active': ''}}" ng-click="tab=1">
                     <i class="icon ion-clipboard"></i>
                     Planilha 
