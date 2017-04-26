@@ -1,11 +1,15 @@
 <ion-view view-title="Personagens" id="npcs">
   <ion-content>
-  <div class="card" ng-repeat="p in personagens | filter: filtro">
+  <div class="card" ng-repeat="p in personagens | orderBy: ['seita','clan','nome'] | filter: filtro">
 
-    <div class="item item-divider">
-        <b><span ng-bind="p.nome"></span><br/></b>
+    <div class="item item-thumbnail-left" ng-click="apt[$index]=!apt[$index]">
+        <img src="img/clanlogos/caitiff.png">
+        <h2><b><span ng-bind="p.nome"></span></b></h2>
+        <p><span ng-bind="p.seita"></span></span></p>
+        <p ng-show="p.narrador=='N'">Jogador: <b><span ng-bind="p.jogador"></span></b></p>
+        <p ng-show="p.narrador=='S'">Narrador: <b><span ng-bind="p.jogador"></span></b></p>
     </div>
-    <div class="item item-body">
+    <div class="item item-body" ng-show="apt[$index]">
         <span ng-bind="p.rumores"></span>
     </div>
 

@@ -7,6 +7,10 @@
             </label>
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Clã?" ng-model="filtro.clan">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
                 <input type="text" placeholder="Aprovado?" ng-model="filtro.aprovado">
             </label>
         </div>
@@ -16,7 +20,8 @@
                 <img src="img/clanlogos/caitiff.png">
                 <h2><b><span ng-bind="p.nome"></span></b></h2>
                 <p><span ng-bind="p.seita"></span> - <span ng-bind="p.clan"></span></p>
-                <p>Jogador: <b><span ng-bind="p.jogador"></span></b></p>
+                <p ng-show="p.narrador=='N'">Jogador: <b><span ng-bind="p.jogador"></span></b></p>
+                <p ng-show="p.narrador=='S'">Narrador: <b><span ng-bind="p.jogador"></span></b></p>
                 <p>Aprovado: <b><span ng-bind="p.aprovado"></span></b></p>
             </a>
 

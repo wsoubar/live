@@ -36,6 +36,28 @@
         <div class="item item-text-wrap" ng-show="shAntec">
           <pre>{{admPersonagem.antecedentes ? admPersonagem.antecedentes : 'Antecedentes ainda não foram criados!'}}</pre>
         </div>
+        <div class="item item-divider" ng-click="shXP=!shXP">
+          Pontos de experiência
+        </div>
+        <div class="item item-text-wrap" ng-show="shXP">
+          <div class="list">
+            <label class="item item-input item-stacked-label" >
+                <span class="input-label">Data</span>
+                <input type="date" ng-model="nxp.data">
+            </label>
+            <label class="item item-input item-stacked-label" >
+                <span class="input-label">Descrição</span>
+                <input type="text" ng-model="nxp.descricao">
+            </label>
+            <label class="item item-input item-stacked-label" >
+                <span class="input-label">valor</span>
+                <input type="number" ng-model="nxp.valor" >
+            </label>
+            <div>
+                <button class="button button-block button-positive">Adicionar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </ion-content>
 </ion-view>

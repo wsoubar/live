@@ -21,19 +21,8 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
       StatusBar.styleDefault();
     }
 
-    console.log('user stored: ', $localStorage.user);
+    console.log('user stoared: ', $localStorage.user);
     //stateChange event
-    $ionicPlatform.registerBackButtonAction(function (event) {
-      if($state.current.name=="app.home"){
-        var sair = confirm("Sair?");
-        if (sair) {
-          navigator.app.exitApp(); //<-- remove this line to disable the exit
-        }
-     
-      } else {
-        navigator.app.backHistory();
-      }
-    }, 100);
 
 /*
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
@@ -99,7 +88,6 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage',
   })
 
   .state('app.editPersonagem', {
-    cache : false,
     url: '/editPersonagem',
     views: {
       'menuContent': {

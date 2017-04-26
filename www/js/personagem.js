@@ -4,7 +4,7 @@
     var app = angular.module('personagem', []);
 
     app.controller('editPersonagemCtrl', function ($scope, $localStorage, $state, $firebaseObject, $ionicLoading) {
-        $scope.tab = 0;
+        $scope.tab = 1;
         $scope.p = {};
 
         $ionicLoading.show({
@@ -88,16 +88,7 @@
 
 
         if (false) {
-
-            var ct = [
-{
-     citacao: "O palco nada mais faz senão ecoar a voz do público.\nAs leis do drama são redigidas pelos pagantes\nPois nós que vivemos de agradar, precisamos agradar pra viver.",
-    autor: "Samuel Clemens"
-}
-
-];
-
-            angular.forEach(ct, function (ct) {
+            angular.forEach(citacoes, function (ct) {
                 var ref = firebase.database().ref().child("citacoes").push();
                 var obj = $firebaseObject(ref);
                 obj.citacao = ct.citacao;
@@ -187,128 +178,24 @@
     });
 
     app.controller('adminPersonagemCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, personagemService) {
-        //var personagem = $localStorage.admPersonagem;
-        $scope.shPlanilha = false;
-       // $scope.shHistoria = false;
-
-        $scope.admPersonagem = {};
-
+/*
         $ionicLoading.show({
             template: 'carregando...',
             duration: 20000
         }).then(function(){
             console.log("The loading indicator is now displayed");
         });
+            $ionicLoading.hide();
+*/
+        //var personagem = $localStorage.admPersonagem;
+        $scope.shPlanilha = false;
+       // $scope.shHistoria = false;
 
-
+        $scope.admPersonagem = {};
         console.log('admPersonagem 1', $localStorage.admPersonagem);
         angular.copy($localStorage.admPersonagem, $scope.admPersonagem);
         //delete $localStorage.admPersonagem;
 
-        var pid = $localStorage.admPersonagem.$id;
-        console.log('personagem.$id', pid);
-        var ref = firebase.database().ref().child("personagens").child(pid);
-
-
-        var personagem = $firebaseObject(ref);
-        personagem.$loaded().then(function () {
-            $scope.admPersonagem = personagem;
-            console.log('personagem carregado');
-            $ionicLoading.hide();
-        }).catch(function (error) {
-            console.error("Error:", error);
-            $scope.admPersonagem = $localStorage.admPersonagem;
-            $ionicLoading.hide();
-        });
-
-
-        $scope.aprovar = function () {
-            var z = confirm('Confirma aprovação do personagem?');
-            if (z) {
-                $scope.admPersonagem.aprovado = 'S';
-                $scope.admPersonagem.$save().then(function (ref) {
-                    var ok = (ref.key === $scope.admPersonagem.$id); // true
-                    console.log('aprovado com sucesso? ' + ok);
-                    $localStorage.personagem = $scope.admPersonagem;
-
-                    $ionicLoading.show({
-                        template: 'Informações atualizadas com sucesso.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                    
-                }, function (error) {
-                    console.log("Error:", error);
-                    $ionicLoading.show({
-                        template: 'Erro ao tentar atualizar informações.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                });
-            }
-        }
-
-        $scope.reprovar = function () {
-            var z = confirm('Confirma aprovação do personagem?');
-            if (z) {
-                $scope.admPersonagem.aprovado = 'N';
-                $scope.admPersonagem.$save().then(function (ref) {
-                    var ok = (ref.key === $scope.admPersonagem.$id); // true
-                    console.log('reprovado com sucesso? ' + ok);
-                    $localStorage.personagem = $scope.admPersonagem;
-
-                    $ionicLoading.show({
-                        template: 'Informações atualizadas com sucesso.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                    
-                }, function (error) {
-                    console.log("Error:", error);
-                    $ionicLoading.show({
-                        template: 'Erro ao tentar atualizar informações.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                });
-            }
-        }
-
     });
-
-app.directive('expandingTextarea', function () {
-    return {
-        restrict: 'A',
-        controller: function ($scope, $element, $attrs, $timeout) {
-            $element.css('min-height', '0');
-            $element.css('resize', 'none');
-            $element.css('overflow-y', 'hidden');
-            setHeight(0);
-            $timeout(setHeightToScrollHeight);
-
-            function setHeight(height) {
-                $element.css('height', height + 'px');
-                $element.css('max-height', height + 'px');
-            }
-
-            function setHeightToScrollHeight() {
-                setHeight(0);
-                var scrollHeight = angular.element($element)[0]
-                  .scrollHeight;
-                if (scrollHeight !== undefined) {
-                    setHeight(scrollHeight);
-                }
-            }
-
-            $scope.$watch(function () {
-                return angular.element($element)[0].value;
-            }, setHeightToScrollHeight);
-        }
-    };
-});
 
 })();
