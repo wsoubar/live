@@ -19,11 +19,12 @@
         });
         
 
+/*
         $scope.mensagens.$watch(function(event) {
           console.log(event);
           alert('Chegou mensagem...');
         });
-
+*/
   //    var list = $firebaseArray(ref);
       $scope.add = function (mensagem) {
         if (mensagem) {
