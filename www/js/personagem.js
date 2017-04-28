@@ -202,7 +202,7 @@
 
 
         console.log('admPersonagem 1', $localStorage.admPersonagem);
-        angular.copy($localStorage.admPersonagem, $scope.admPersonagem);
+        $scope.admPersonagem = angular.copy($localStorage.admPersonagem);
         //delete $localStorage.admPersonagem;
 
         var pid = $localStorage.admPersonagem.$id;
@@ -217,7 +217,7 @@
             $ionicLoading.hide();
         }).catch(function (error) {
             console.error("Error:", error);
-            $scope.admPersonagem = $localStorage.admPersonagem;
+            $scope.admPersonagem = angular.copy($localStorage.admPersonagem);
             $ionicLoading.hide();
         });
 
@@ -229,7 +229,7 @@
                 $scope.admPersonagem.$save().then(function (ref) {
                     var ok = (ref.key === $scope.admPersonagem.$id); // true
                     console.log('aprovado com sucesso? ' + ok);
-                    $localStorage.personagem = $scope.admPersonagem;
+                    $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
 
                     $ionicLoading.show({
                         template: 'Informações atualizadas com sucesso.',
@@ -257,7 +257,7 @@
                 $scope.admPersonagem.$save().then(function (ref) {
                     var ok = (ref.key === $scope.admPersonagem.$id); // true
                     console.log('reprovado com sucesso? ' + ok);
-                    $localStorage.personagem = $scope.admPersonagem;
+                    $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
 
                     $ionicLoading.show({
                         template: 'Informações atualizadas com sucesso.',

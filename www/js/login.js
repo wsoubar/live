@@ -13,7 +13,7 @@
     //});
 
       console.log("personagem", $localStorage.personagem);
-      $scope.personagem = $localStorage.personagem;
+      $scope.personagem = angular.copy($localStorage.personagem);
 
       $scope.logout = function () {
           var r = confirm("Deseja sair??");
