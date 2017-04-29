@@ -36,30 +36,47 @@
         <div class="item item-text-wrap" ng-show="shAntec">
           <pre>{{admPersonagem.antecedentes ? admPersonagem.antecedentes : 'Antecedentes ainda não foram criados!'}}</pre>
         </div>
-        <!--
         <div class="item item-divider" ng-click="shXP=!shXP">
           Pontos de experiência
         </div>
         <div class="item item-text-wrap" ng-show="shXP">
-          <div class="list">
-            <label class="item item-input item-stacked-label" >
-                <span class="input-label">Data</span>
-                <input type="date" ng-model="nxp.data">
-            </label>
-            <label class="item item-input item-stacked-label" >
-                <span class="input-label">Descrição</span>
-                <input type="text" ng-model="nxp.descricao">
-            </label>
-            <label class="item item-input item-stacked-label" >
-                <span class="input-label">valor</span>
-                <input type="number" ng-model="nxp.valor" >
-            </label>
-            <div>
-                <button class="button button-block button-positive">Adicionar</button>
+          <form name="vm.xpform" ng-submit="addXP()" novalidate>
+            <div class="list">
+              <div class="item item-divider row">
+                  <div class="col"><b>Data</b></div>
+                  <div class="col"><b>Descrição</b></div>
+                  <div class="col"><b>Valor</b></div>
+              </div>
+              <div class="item row" ng-repeat="xp in xpArray | orderBy : '-data'">
+                  <div class="col">{{xp.data | date : 'dd/mm/yyyy'}}</div>
+                  <div class="col">{{xp.descricao}}</div>
+                  <div class="col">{{xp.valor}}</div>
+              </div>
             </div>
-          </div>
+            <div class="list">
+              <div class="item item-divider row">
+                Adicionar XP
+              </div>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">Data</span>
+                  <input type="date" name="data" ng-model="xpData.data" required>
+                  <p style="color: red" ng-show="xpform.data.$error.required && !xpform.data.$pristine">* Data é obrigatória</p>
+              </label>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">Descrição</span>
+                  <input type="text" name="descricao" ng-model="xpData.descricao" required>
+                  <p style="color: red" ng-show="xpform.descricao.$error.required && !xpform.descricao.$pristine">* Descrição é obrigatória</p>
+              </label>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">valor</span>
+                  <input type="number" ng-model="xpData.valor" required>
+              </label>
+              <div>
+                  <button type="submit" class="button button-block button-positive" >Adicionar</button>
+              </div>
+            </div>
+          </form>
         </div>
-        -->
       </div>
     </ion-content>
 </ion-view>

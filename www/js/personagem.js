@@ -186,12 +186,15 @@
         }
     });
 
-    app.controller('adminPersonagemCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, personagemService) {
+    app.controller('adminPersonagemCtrl', function ($scope, $localStorage, $ionicLoading, 
+        $firebaseObject, personagemService, $firebaseArray, $parse) {
         //var personagem = $localStorage.admPersonagem;
         $scope.shPlanilha = false;
        // $scope.shHistoria = false;
-
+        $scope.vm = {};
         $scope.admPersonagem = {};
+        $scope.xpArray = [];
+        $scope.xpData = {};
 
         $ionicLoading.show({
             template: 'carregando...',
@@ -208,8 +211,6 @@
         var pid = $localStorage.admPersonagem.$id;
         console.log('personagem.$id', pid);
         var ref = firebase.database().ref().child("personagens").child(pid);
-
-
         var personagem = $firebaseObject(ref);
         personagem.$loaded().then(function () {
             $scope.admPersonagem = personagem;
@@ -218,6 +219,17 @@
         }).catch(function (error) {
             console.error("Error:", error);
             $scope.admPersonagem = angular.copy($localStorage.admPersonagem);
+            $ionicLoading.hide();
+        });
+
+        var xpref = firebase.database().ref().child("xps").child(pid);
+        var xps = $firebaseArray(xpref);
+        xps.$loaded().then(function () {
+            $scope.xpArray = xps;
+            console.log('xps carregados');
+            $ionicLoading.hide();
+        }).catch(function (error) {
+            console.error("Error:", error);
             $ionicLoading.hide();
         });
 
@@ -276,7 +288,40 @@
                     });
                 });
             }
-        }
+        };
+
+        $scope.addXP = function () {
+            console.log("data: " + Date.parse($scope.xpData.data));
+            console.log(JSON.stringify($scope.xpData));
+
+            var itemxp = {
+                data :  Date.parse($scope.xpData.data),
+                descricao : $scope.xpData.descricao,
+                valor : $scope.xpData.valor
+            };
+
+            $scope.xpArray.$add(itemxp)
+            .then(function (r) {
+                console.log("foi?" + r.key);
+                console.log("xp adicionado");
+                $scope.xpData.data = null;
+                $scope.xpData.descricao = '';
+                $scope.xpData.valor = 0;
+                $scope.vm.xpform.$setPristine(true);
+                $scope.vm = {};
+
+            });
+        };
+
+        $scope.delXP = function (item) {
+            $scope.xpArray.$remove(item)
+            .then(function (r) {
+                $scope.xpData = {};
+                console.log(r.key === item.$id);
+                console.log("xp adicionado");
+            });
+        };
+
 
     });
 
