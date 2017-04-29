@@ -3,10 +3,11 @@
 
     var app = angular.module('personagem', []);
 
-    app.controller('editPersonagemCtrl', function ($scope, $localStorage, $state, $firebaseObject, $ionicLoading) {
+    app.controller('editPersonagemCtrl', function ($scope, $localStorage, $state, $firebaseObject,
+        $firebaseArray, $ionicLoading) {
         $scope.tab = 0;
         $scope.p = {};
-
+        $scope.xpArray = []
         $ionicLoading.show({
             template: 'carregando...',
             duration: 20000
@@ -28,6 +29,28 @@
             $scope.p = $localStorage.personagem;
             $ionicLoading.hide();
         });
+
+        var xpref = firebase.database().ref().child("xps").child(pid);
+        var xps = $firebaseArray(xpref);
+        xps.$loaded().then(function () {
+            $scope.xpArray = xps;
+            console.log('xps carregados');
+            $ionicLoading.hide();
+        }).catch(function (error) {
+            console.error("Error:", error);
+            $ionicLoading.hide();
+        });
+
+        //$scope.totalxp = 0;
+        $scope.getTotalXP = function () {
+            var totalxp = 0
+            for (var i = 0; i < $scope.xpArray.length; i++) {
+                var xpelement = $scope.xpArray[i];
+                totalxp += xpelement.valor;
+            }
+            return totalxp;
+        };
+        //$scope.getTotalXP();
 
 
         $scope.salvar = function () {
@@ -314,12 +337,15 @@
         };
 
         $scope.delXP = function (item) {
-            $scope.xpArray.$remove(item)
-            .then(function (r) {
-                $scope.xpData = {};
-                console.log(r.key === item.$id);
-                console.log("xp adicionado");
-            });
+            var x = confirm("Remover XP?");
+            if (x) {
+                $scope.xpArray.$remove(item)
+                .then(function (r) {
+                    $scope.xpData = {};
+                    console.log(r.key === item.$id);
+                    console.log("xp removido");
+                });
+            }
         };
 
 

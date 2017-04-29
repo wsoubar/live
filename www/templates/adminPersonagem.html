@@ -42,15 +42,19 @@
         <div class="item item-text-wrap" ng-show="shXP">
           <form name="vm.xpform" ng-submit="addXP()" novalidate>
             <div class="list">
+              <!--
               <div class="item item-divider row">
                   <div class="col"><b>Data</b></div>
-                  <div class="col"><b>Descrição</b></div>
-                  <div class="col"><b>Valor</b></div>
+                  <div class="col col-50"><b>Descrição</b></div>
+                  <div class="col col-20"><b>Valor</b></div>
+                  <div class="col col-10">&nbsp;</div>
               </div>
+              -->
               <div class="item row" ng-repeat="xp in xpArray | orderBy : '-data'">
-                  <div class="col">{{xp.data | date : 'dd/mm/yyyy'}}</div>
-                  <div class="col">{{xp.descricao}}</div>
-                  <div class="col">{{xp.valor}}</div>
+                  <div class="col">{{xp.data | date : 'dd/MM/yyyy'}}</div>
+                  <div class="col col-40">{{xp.descricao}}</div>
+                  <div class="col col-20">{{xp.valor}}</div>
+                  <div class="col col-20"><button class="button icon ion-trash-b" ng-click="delXP(xp)"></button></div>
               </div>
             </div>
             <div class="list">

@@ -12,13 +12,31 @@
                         
         </div>
         <div id="tab1" class="list" ng-show="tab==0">
-            <label class="item item-input item-stacked-label" >
+<!--            <label class="item item-input item-stacked-label" >
                 <span class="input-label">Nome do personagem</span>
                 <input type="text" ng-model="p.nome" 
                     ng-show="personagem.aprovado=='N'">
                 </textarea>
                 <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.nome}}</pre>
             </label>
+-->
+            <div class="item item-divider item-icon-left" ng-click="shXP=!shXP">
+            Pontos de experiência
+            <span class="badge badge-positive">{{getTotalXP()}}</span>
+            </div>
+
+            <div class="list" ng-show="shXP">
+              <div class="item item-divider row">
+                  <div class="col"><b>Data</b></div>
+                  <div class="col"><b>Descrição</b></div>
+                  <div class="col"><b>Valor</b></div>
+              </div>
+              <div class="item item-text-wrap row" ng-repeat="xp in xpArray | orderBy : '-data'">
+                  <div class="col">{{xp.data | date : 'dd/MM/yyyy'}}</div>
+                  <div class="col">{{xp.descricao}}</div>
+                  <div class="col">{{xp.valor}}</div>
+              </div>
+            </div>
         </div>
         <div id="tab1" ng-show="tab==1">
             <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
