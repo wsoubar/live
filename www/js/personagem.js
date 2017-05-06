@@ -90,25 +90,62 @@
         ];
 */
         $ionicLoading.show({
-            template: 'carregando...',
+            template: 'carregando citação...',
             duration: 20000
         }).then(function(){
             console.log("The loading indicator is now displayed");
         });
-        
-        var ref = firebase.database().ref().child("citacoes");
-        var citacoes = $firebaseArray(ref);
-        citacoes.$loaded().then(function (lista) {
-            console.log('Home-citacoes ', lista.length);
+
+        var agora = Date.now();
+        if ($localStorage.citacoesData) {
+            var dif = diff($localStorage.citacoesData, agora);
+            console.log(dif);
+            if (dif >= 1440) { // 720 minutos 12h, 1440 - 24h; 2
+                delete $localStorage.citacoes;
+            }
+        }
+        if (!$localStorage.citacoes) {
+            console.log('carregando citacoes online');
+            var ref = firebase.database().ref().child("citacoes");
+            var citacoes = $firebaseArray(ref);
+            citacoes.$loaded().then(function (lista) {
+                $localStorage.citacoes = lista;
+                $localStorage.citacoesData = agora;
+                console.log('data citacao', $localStorage.citacoesData);
+                var aleatorio = Math.floor(Math.random() * lista.length);
+                $scope.q = lista[aleatorio];
+                $ionicLoading.hide();
+            }).catch(function (error) {
+                console.log('erro carregando citacoes ', error);
+            });
+        } else {
+            console.log('carregando citacoes do localStorage');
+            var lista = $localStorage.citacoes;
             var aleatorio = Math.floor(Math.random() * lista.length);
-            console.log('ale ' + aleatorio);
             $scope.q = lista[aleatorio];
             $ionicLoading.hide();
-            
-        }).catch(function (error) {
-            console.log('erro carregando citacoes ', error);
-        });
+        }
 
+
+//var t = "eXtpJ3BdiQ4:APA91bGJDsXtvXBrqEup6rlkIqI-nfHW9E5EoJznitv6HMP3VX8I0wopOo7UBXejdFNRJpxZtFeVgiK5TMmzinLZB_IHYrEdT0UcvU_WGcc7ju1t3AwNBTqS_YtXSdb6A4E2qmggstj7";
+/*
+setTimeout(function() {
+    console.log('fazer o token funcionar depois de 10s');
+
+
+        FCMPlugin.subscribeToTopic('MeusTestes');
+        FCMPlugin.subscribeToTopic('Sabbat');
+        FCMPlugin.subscribeToTopic('Camarilla');
+        FCMPlugin.subscribeToTopic('Independente');
+    console.log('depois do subscribe');
+    //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
+    //Keep in mind the function will return null if the token has not been established yet.
+    //FCMPlugin.getToken(function(token){
+    //    console.log("["+token+']');
+    //    alert(token);
+    //});
+}, 5000);
+*/
 
         if (false) {
 
@@ -159,19 +196,36 @@
         $scope.filtro = {aprovado: 'S'};
         $scope.personagens = [];
         $ionicLoading.show({
-            template: 'carregando...',
+            template: 'carregando personagens...',
             duration: 20000
         }).then(function(){
             console.log("The loading indicator is now displayed");
         });
 
-        $scope.personagens = personagemService.personagens();
+        var agora = Date.now();
+        if ($localStorage.personagensData) {
+            var dif = diff($localStorage.personagensData, agora);
+            console.log(dif);
+            if (dif >= 1440) { // 720 minutos 12h, 1440 - 24h; 2
+                delete $localStorage.personagens;
+            }
+        }
+        if (!$localStorage.personagens) {
+        
+            console.log("carregando personages online");
+            $scope.personagens = personagemService.personagens();
 
-        $scope.personagens.$loaded().then(function () {
-            console.log('array de personagens carregado');
+            $scope.personagens.$loaded().then(function () {
+                $localStorage.personagens = $scope.personagens;
+                $localStorage.personagensData = agora;
+                console.log('array de personagens carregado');
+                $ionicLoading.hide();
+            });
+        } else {
+            console.log("carregando personages do localStorage");
+            $scope.personagens = $localStorage.personagens;
             $ionicLoading.hide();
-        });
-
+        }
         $scope.limite = 5;
 
         $scope.loadMore = function() {
@@ -179,6 +233,24 @@
             $scope.limite = incremented > $scope.personagens.length ?$scope.personagens.length : increamented;
         };
 
+        $scope.doRefresh = function () {
+            $ionicLoading.show({
+                template: 'carregando personagens...',
+                duration: 20000
+            }).then(function(){
+                console.log("The loading indicator is now displayed");
+            });
+            console.log("carregando personages online");
+            $scope.personagens = personagemService.personagens();
+
+            $scope.personagens.$loaded().then(function () {
+                $localStorage.personagens = $scope.personagens;
+                $localStorage.personagensData = Date.now();
+                console.log('array de personagens carregado');
+                $ionicLoading.hide();
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        }
     });
 
     app.controller('adminCtrl', function ($scope, $localStorage, $ionicLoading, personagemService, $state) {
@@ -348,6 +420,15 @@
             }
         };
 
+        $scope.getTotalXP = function () {
+            var totalxp = 0
+            for (var i = 0; i < $scope.xpArray.length; i++) {
+                var xpelement = $scope.xpArray[i];
+                totalxp += xpelement.valor;
+            }
+            return totalxp;
+        };
+
 
     });
 
@@ -381,5 +462,10 @@ app.directive('expandingTextarea', function () {
         }
     };
 });
+
+function diff(dataini, datafim) {
+    var diff = (datafim - dataini)/1000/60;
+    return Math.abs(Math.round(diff));
+}
 
 })();

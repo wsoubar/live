@@ -3,7 +3,7 @@
 
   var app = angular.module('login', []);
 
-  app.controller('menuCtrl', function ($scope, $localStorage, $state) {
+  app.controller('menuCtrl', function ($scope, $localStorage, $state, $firebaseObject, $ionicLoading) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -12,8 +12,28 @@
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
-      console.log("personagem", $localStorage.personagem);
-      $scope.personagem = angular.copy($localStorage.personagem);
+      $ionicLoading.show({
+          template: 'carregando os dados do seu personagem...',
+          duration: 20000
+      }).then(function(){
+          console.log("The loading indicator is now displayed");
+      });
+      
+      var pid = $localStorage.personagem.$id;
+      var ref = firebase.database().ref().child("personagens").child(pid);
+      var personagem = $firebaseObject(ref);
+      personagem.$loaded().then(function () {
+          $scope.personagem = personagem;
+          $localStorage.personagem = personagem;
+          // $scope.personagem = angular.copy($localStorage.personagem);
+          console.log("personagem logado: " + personagem.nome);
+          $ionicLoading.hide();
+      }).catch(function (error) {
+          console.error("Error:", error);
+          $scope.personagem = $localStorage.personagem;
+          $ionicLoading.hide();
+      });
+      
 
       $scope.logout = function () {
           var r = confirm("Deseja sair??");

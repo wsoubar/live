@@ -1,5 +1,9 @@
 <ion-view view-title="Personagens" id="npcs">
   <ion-content>
+    <ion-refresher
+      pulling-text="Puxe para atualizar..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
   <div class="card" ng-repeat="p in personagens | orderBy: ['seita','clan','nome'] | filter: filtro">
 
     <div class="item item-thumbnail-left" ng-click="apt[$index]=!apt[$index]">
