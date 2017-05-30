@@ -21,6 +21,11 @@ http://ionicframework.com/docs/guide/publishing.html
 http://stackoverflow.com/questions/40206968/why-my-ionic-app-fcmplugin-onnotification-does-not-get-called-for-incoming-pus
 http://stackoverflow.com/questions/37653251/firebase-cloud-messaging-with-ionic-app
 
+
+gcm
+http://lokesh-patel.blogspot.com.br/2016/06/cordova-plugin-firebase-cloud-messaging.html
+https://www.npmjs.com/package/cordova-plugin-firebase-messaging
+
 {
   "rules": {
     "dinosaurs": {

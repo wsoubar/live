@@ -1,0 +1,52 @@
+<ion-view view-title="Ações">
+    <ion-nav-buttons side="right">
+        <button class="button" ng-click="mostraEnvio()" ng-show="permiteacao">
+          <i class="icon ion-compose"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+      <!-- <pre>msg: {{enviarMsg}} | user: {{user}}</pre> -->
+      <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="doRefresh()">
+      </ion-refresher>
+      <form id="sendform" name="sendform" ng-submit="add(formData.acao)" ng-show="enviarMsg">
+
+        <div class="list list-inset" style="padding-bottom: 10px;">
+         
+          <label class="item item-input">
+            <input type="text" ng-model="formData.acao" placeholder="Ação">
+          </label>
+          <button class=" item button button-block button-positive" type="submit">
+            Enviar
+          </button>
+
+        </div>
+      </form>
+      <!--
+      <div class="list list-inset">
+          <div class="item item-text-wrap item-divider">
+             Narrador
+          </div>  
+          <div class="item item-text-wrap">
+            Lorem ipsum dolor sit amet, te pro facete latine, sit ea nibh nominavi definitiones. Ei sint semper mea, affert dicunt quodsi has ne, ut quis aperiam apeirian pri. Ad mei oporteat senserit urbanitas, et sit quaestio consequat. Diam oporteat consequuntur an mei, vulputate interesset ex usu, te ius brute detraxit urbanitas
+          </div>
+      </div>
+      -->
+      <div class="list card" ng-repeat="acao in acoes | orderBy: '-data'">
+          <!-- item-thumbnail-left  -->
+          {{permiteAcao($index, acao.tipo)}}          
+          <div class="item item-avatar item-divider">
+              <img ng-src="img/clanlogos/caitiff.png">
+              <h2><span ng-bind="acao.nome"></span></h2>
+              <p>Enviada em <span>{{acao.data | date: 'dd/MM HH:mm'}}</span></p>
+          </div>
+          <div class="item item-body">
+            <p><span ng-bind="acao.acao"></span></p>
+          </div>
+
+      </div>
+  
+
+  </ion-content>
+</ion-view>

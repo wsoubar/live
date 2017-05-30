@@ -1,0 +1,27 @@
+Sebastian Rodrigues
+Setita
+NPC: Wagner
+Natureza: Diretor
+Comportamento: Corrupto
+Conceito: Intelectual
+Senhor: Desaparecido
+
+Atributos
+====
+Físicos: Força 2, Destreza 4, Vigor 5; (5) / pb (10)
+Sociais: Carisma 5, Manipulação 7, Aparência 2; (10) / pb (5) 
+Mentais: Percepção 4, Inteligência 4, Raciocínio 4; (7) / pb (10)
+
+Habilidades:
+====
+Talentos: Prontidão 5, esquiva 3, empatia 5, intimidação 5, liderança ,manha , lábia 
+Perícias: empatia com animais 3, condução , etiqueta, armas de fogo, armas brancas, performance, segurança , furtividade, sobrevivencia
+Conhecimentos: acadêmicos 5, computador, finanças, investigação, linguistica, ocultismo 8, politica 
+
+Vantagens
+====
+Disciplinas: Serpentis 7, Presença 6, Ofuscação 8, Thaumaturgical Countermagic 5, demência 1, Rapidez 3, fortitude 3, potencia 3, auspícius 4  
+
+Antecedentes: aliados 6, contatos 5, rebanho 3, influência 6, recursos 5, status 5, rituais 5
+
+Virtudes: cosnciência 3, autocontrole 5, coragem 5

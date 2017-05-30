@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 
-'login', 'chat', 'personagem'])
+'login', 'chat', 'personagem', 'acoes'])
 
 .run(function($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray) {
   $ionicPlatform.ready(function() {
@@ -208,6 +208,17 @@ setTimeout(function() {
       'menuContent': {
         templateUrl: 'templates/chat.html',
         controller: 'chatCtrl'
+      }
+    }
+    
+  })
+
+  .state('app.acoes', {
+    url: '/acao',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/acoes.html',
+        controller: 'acoesCtrl'
       }
     }
     
