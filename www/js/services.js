@@ -27,6 +27,19 @@
         }
     ]);
 
+    app.factory('utilServices', [function name() {
+        var factory = {
+            diff : diff
+        };
+        return factory;
+
+        function diff(dataini, datafim) {
+            var diff = (datafim - dataini)/1000/60;
+            return Math.abs(Math.round(diff));
+        }
+
+
+    }]);
 
     app.factory('dialogService', ["$ionicPopup", function ($ionicPopup) {
         var factory = {
@@ -58,16 +71,15 @@
             var factory = {
                 personagemByUserID: personagemByUserID,
                 personagens: personagens,
-                personagemByID : personagemByID
+                personagemByID : personagemByID,
+                XPsByPersonagem : XPsByPersonagem
             };
 
             return factory;
 
             function personagens() {
                 var ref = firebase.database().ref().child("personagens").orderByChild("nome");
-                var personagens = $firebaseArray(ref);
-                console.log('personagemService::personagens');
-                return personagens;
+                return $firebaseArray(ref);
             }
 
             function personagemByUserID(userid) {
@@ -81,6 +93,12 @@
                 var ref = firebase.database().ref().child("personagens").child(pid);
                 return $firebaseObject(ref);
             }
+
+            function XPsByPersonagem(pid) {
+                var xpref = firebase.database().ref().child("xps").child(pid);
+                return $firebaseArray(xpref);
+            }
+
         }
     ]);
 

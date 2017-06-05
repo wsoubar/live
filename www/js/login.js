@@ -3,65 +3,6 @@
 
     var app = angular.module('login', []);
 
-    app.controller('menuCtrl', function ($rootScope, $scope, $localStorage, $state, $ionicLoading, dialogService, personagemService) {
-
-        // With the new view caching in Ionic, Controllers are only called
-        // when they are recreated or on app start, instead of every page change.
-        // To listen for when this page is active (for example, to refresh data),
-        // listen for the $ionicView.enter event:
-        //$scope.$on('$ionicView.enter', function(e) {
-        //});
-
-        $ionicLoading.show({
-            template: 'carregando os dados do seu personagem...',
-            duration: 20000
-        }).then(function () {
-            console.log("The loading indicator is now displayed");
-        });
-
-        var pid = $localStorage.personagem.$id;
-        //      var ref = firebase.database().ref().child("personagens").child(pid);
-        var personagem = personagemService.personagemByID(pid);
-        personagem.$loaded().then(function () {
-            $scope.personagem = personagem;
-            $rootScope.personagem = personagem;
-            $localStorage.personagem = personagem;
-            // $scope.personagem = angular.copy($localStorage.personagem);
-            console.log("personagem logado: ", personagem);
-            $ionicLoading.hide();
-        }).catch(function (error) {
-            console.error("Error:", error);
-            $scope.personagem = $localStorage.personagem;
-            $ionicLoading.hide();
-        });
-
-
-        $scope.logout = function () {
-            var confirm = dialogService.confirm({ template: "Deseja sair?" });
-            //var r = confirm("Deseja sair??");
-            //if (r == true) {
-            confirm.then(function (sucesso) {
-                if (sucesso) {
-                    firebase.auth().signOut().then(function () {
-                        console.log('signed out!');
-                        delete $localStorage.user;
-                        delete $localStorage.personagem;
-                        //alert('Logout realizado com sucesso');
-                        $state.go('login');
-                    }, function (error) {
-                        console.error('Sign Out Error', error);
-                        alert('Ocorreu algum erro ao tentar sair!!!');
-                    });
-                }
-            })
-                .catch(function (err) {
-                    console.log('deu erro no confirm: ', err);
-                });
-        };
-
-
-    });
-
     app.controller('autologinCtrl', function ($scope, $localStorage, $state) {
         if ($localStorage.user && $localStorage.personagem) {
             $state.go('app.home');

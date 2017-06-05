@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'services',
-    'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat'])
+    'menu', 'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat'])
 
     .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray, dialogService, $ionicHistory) {
         $ionicPlatform.ready(function () {

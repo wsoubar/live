@@ -80,82 +80,6 @@
 
     });
 
-    app.controller('homeCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray) {
-        /*
-        var citacoes = [
-            {
-                citacao: "Portanto, com a mesma certeza pela qual a pedra cai para a terra, o lobo faminto enterra suas presas na carne de sua vítima, alheio ao fato de que ele próprio é tanto o destruidor como o destruído.",
-                autor: "Schopenhauer"
-            }
-        ];
-*/
-        $ionicLoading.show({
-            template: 'carregando citação...',
-            duration: 20000
-        }).then(function(){
-            console.log("The loading indicator is now displayed");
-        });
-
-        var agora = Date.now();
-        if ($localStorage.citacoesData) {
-            var dif = diff($localStorage.citacoesData, agora);
-            console.log(dif);
-            if (dif >= 1440) { // 720 minutos 12h, 1440 - 24h; 2
-                delete $localStorage.citacoes;
-            }
-        }
-        if (!$localStorage.citacoes) {
-            console.log('carregando citacoes online');
-            var ref = firebase.database().ref().child("citacoes");
-            var citacoes = $firebaseArray(ref);
-            citacoes.$loaded().then(function (lista) {
-                $localStorage.citacoes = lista;
-                $localStorage.citacoesData = agora;
-                console.log('data citacao', $localStorage.citacoesData);
-                var aleatorio = Math.floor(Math.random() * lista.length);
-                $scope.q = lista[aleatorio];
-                $ionicLoading.hide();
-            }).catch(function (error) {
-                console.log('erro carregando citacoes ', error);
-            });
-        } else {
-            console.log('carregando citacoes do localStorage');
-            var lista = $localStorage.citacoes;
-            var aleatorio = Math.floor(Math.random() * lista.length);
-            $scope.q = lista[aleatorio];
-            $ionicLoading.hide();
-        }
-
-
-/*
-        if (false) {
-
-            var ct = [
-{
-     citacao: "O palco nada mais faz senão ecoar a voz do público.\nAs leis do drama são redigidas pelos pagantes\nPois nós que vivemos de agradar, precisamos agradar pra viver.",
-    autor: "Samuel Clemens"
-}
-
-];
-
-            angular.forEach(ct, function (ct) {
-                var ref = firebase.database().ref().child("citacoes").push();
-                var obj = $firebaseObject(ref);
-                obj.citacao = ct.citacao;
-                obj.autor = ct.autor;
-
-                obj.$save().then(function(ref) {
-                    ref.key === obj.$id; // true
-                    console.log('citacao salva');
-                }, function(error) {
-                    console.log("Error:", error);
-                });      
-                
-            });
-        }
-*/
-
-    });
 
 
     app.controller('timelineCtrl', function ($scope, $localStorage, $state) {
@@ -173,7 +97,7 @@
         }];
     });
 
-    app.controller('personagensCtrl', function ($scope, $localStorage, $state, personagemService, $ionicLoading) {
+    app.controller('personagensCtrl', function ($scope, $localStorage, $state, personagemService, $ionicLoading, utilServices) {
         $scope.filtro = {aprovado: 'S'};
         $scope.personagens = [];
         $ionicLoading.show({
@@ -185,7 +109,7 @@
 
         var agora = Date.now();
         if ($localStorage.personagensData) {
-            var dif = diff($localStorage.personagensData, agora);
+            var dif = utilServices.diff($localStorage.personagensData, agora);
             console.log(dif);
             if (dif >= 1440) { // 720 minutos 12h, 1440 - 24h; 2
                 delete $localStorage.personagens;
@@ -449,10 +373,5 @@ app.directive('expandingTextarea', function () {
         }
     };
 });
-
-function diff(dataini, datafim) {
-    var diff = (datafim - dataini)/1000/60;
-    return Math.abs(Math.round(diff));
-}
 
 })();
