@@ -19,7 +19,9 @@
     <ion-content>
       <ion-list>
         <li class="item item-image">
+          <a menu-close ui-sref="app.home">
             <img ng-src="{{user.claImage ? user.claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
+          </a>
         </li>
 <!--
         <div class="item item-avatar" ng-show="user">
@@ -31,6 +33,10 @@
         <a class="item item-icon-left" menu-close ui-sref="app.editPersonagem">
           <i class="icon ion-person"></i>
             <span ng-bind="personagem.nome"></span>
+        </a>      
+        <a class="item item-icon-left" menu-close ui-sref="app.chatRooms">
+          <i class="icon ion-chatbubbles"></i>
+            <span>Chats</span>
         </a>      
         <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>

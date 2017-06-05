@@ -127,26 +127,7 @@
         }
 
 
-//var t = "eXtpJ3BdiQ4:APA91bGJDsXtvXBrqEup6rlkIqI-nfHW9E5EoJznitv6HMP3VX8I0wopOo7UBXejdFNRJpxZtFeVgiK5TMmzinLZB_IHYrEdT0UcvU_WGcc7ju1t3AwNBTqS_YtXSdb6A4E2qmggstj7";
 /*
-setTimeout(function() {
-    console.log('fazer o token funcionar depois de 10s');
-
-
-        FCMPlugin.subscribeToTopic('MeusTestes');
-        FCMPlugin.subscribeToTopic('Sabbat');
-        FCMPlugin.subscribeToTopic('Camarilla');
-        FCMPlugin.subscribeToTopic('Independente');
-    console.log('depois do subscribe');
-    //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
-    //Keep in mind the function will return null if the token has not been established yet.
-    //FCMPlugin.getToken(function(token){
-    //    console.log("["+token+']');
-    //    alert(token);
-    //});
-}, 5000);
-*/
-
         if (false) {
 
             var ct = [
@@ -172,7 +153,7 @@ setTimeout(function() {
                 
             });
         }
-
+*/
 
     });
 
@@ -282,7 +263,7 @@ setTimeout(function() {
     });
 
     app.controller('adminPersonagemCtrl', function ($scope, $localStorage, $ionicLoading, 
-        $firebaseObject, personagemService, $firebaseArray, $parse) {
+        $firebaseObject, personagemService, $firebaseArray, $parse, dialogService) {
         //var personagem = $localStorage.admPersonagem;
         $scope.shPlanilha = false;
        // $scope.shHistoria = false;
@@ -330,59 +311,63 @@ setTimeout(function() {
 
 
         $scope.aprovar = function () {
-            var z = confirm('Confirma aprovação do personagem?');
-            if (z) {
-                $scope.admPersonagem.aprovado = 'S';
-                $scope.admPersonagem.$save().then(function (ref) {
-                    var ok = (ref.key === $scope.admPersonagem.$id); // true
-                    console.log('aprovado com sucesso? ' + ok);
-                    $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
+            var confirm = dialogService.confirm({template: 'Aprovar personagem?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.admPersonagem.aprovado = 'S';
+                    $scope.admPersonagem.$save().then(function (ref) {
+                        var ok = (ref.key === $scope.admPersonagem.$id); // true
+                        console.log('aprovado com sucesso? ' + ok);
+                        $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
 
-                    $ionicLoading.show({
-                        template: 'Informações atualizadas com sucesso.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
+                        $ionicLoading.show({
+                            template: 'Informações atualizadas com sucesso.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                        
+                    }, function (error) {
+                        console.log("Error:", error);
+                        $ionicLoading.show({
+                            template: 'Erro ao tentar atualizar informações.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
                     });
-                    
-                }, function (error) {
-                    console.log("Error:", error);
-                    $ionicLoading.show({
-                        template: 'Erro ao tentar atualizar informações.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                });
-            }
+                }
+            });
         }
 
         $scope.reprovar = function () {
-            var z = confirm('Confirma reprovação do personagem?');
-            if (z) {
-                $scope.admPersonagem.aprovado = 'N';
-                $scope.admPersonagem.$save().then(function (ref) {
-                    var ok = (ref.key === $scope.admPersonagem.$id); // true
-                    console.log('reprovado com sucesso? ' + ok);
-                    $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
+            var confirm = dialogService.confirm({template: 'Reprovar personagem?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.admPersonagem.aprovado = 'N';
+                    $scope.admPersonagem.$save().then(function (ref) {
+                        var ok = (ref.key === $scope.admPersonagem.$id); // true
+                        console.log('reprovado com sucesso? ' + ok);
+                        $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
 
-                    $ionicLoading.show({
-                        template: 'Informações atualizadas com sucesso.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
+                        $ionicLoading.show({
+                            template: 'Informações atualizadas com sucesso.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                        
+                    }, function (error) {
+                        console.log("Error:", error);
+                        $ionicLoading.show({
+                            template: 'Erro ao tentar atualizar informações.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
                     });
-                    
-                }, function (error) {
-                    console.log("Error:", error);
-                    $ionicLoading.show({
-                        template: 'Erro ao tentar atualizar informações.',
-                        duration: 1500
-                    }).then(function(){
-                        console.log("The loading indicator is now displayed");
-                    });
-                });
-            }
+                }
+            });
         };
 
         $scope.addXP = function () {
@@ -409,15 +394,17 @@ setTimeout(function() {
         };
 
         $scope.delXP = function (item) {
-            var x = confirm("Remover XP?");
-            if (x) {
-                $scope.xpArray.$remove(item)
-                .then(function (r) {
-                    $scope.xpData = {};
-                    console.log(r.key === item.$id);
-                    console.log("xp removido");
-                });
-            }
+            var confirm = dialogService.confirm({template: 'Remover XP?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.xpArray.$remove(item)
+                    .then(function (r) {
+                        $scope.xpData = {};
+                        console.log(r.key === item.$id);
+                        console.log("xp removido");
+                    });
+                }
+            });
         };
 
         $scope.getTotalXP = function () {
