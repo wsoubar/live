@@ -1,0 +1,11 @@
+<ion-view view-title="Chats" id="chats">
+    <ion-content>
+        <div class="list">
+            <a class="item item-icon-left item-icon-right" ui-sref="app.chat({chatid: chat.sala})" ng-repeat="chat in personagem.chats">
+                <i class="icon ion-chatbubbles"></i>
+                {{chat.sala}}
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

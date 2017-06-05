@@ -19,7 +19,7 @@
     <ion-content>
       <ion-list>
         <li class="item item-image">
-          <a menu-close ui-sref="app.home">
+          <a menu-toggle ui-sref="app.home">
             <img ng-src="{{user.claImage ? user.claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
           </a>
         </li>
@@ -30,51 +30,53 @@
           <p>{{user.jogador}}</p>
         </div>
 -->
-        <a class="item item-icon-left" menu-close ui-sref="app.editPersonagem">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.editPersonagem">
           <i class="icon ion-person"></i>
             <span ng-bind="personagem.nome"></span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.chatRooms">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.rooms">
           <i class="icon ion-chatbubbles"></i>
             <span>Chats</span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.clan})" ng-show="personagem.aprovado=='S'">
+        <!-- 
+        <a class="item item-icon-left" menu-toggle ui-sref="app.chat({chatid: personagem.clan})" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>
             <span ng-bind="personagem.clan"></span>
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.chat({chatid: personagem.seita})" ng-show="personagem.aprovado=='S'">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.chat({chatid: personagem.seita})" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>
             <span ng-bind="personagem.seita"></span>
-        </a>    
+        </a> 
+        -->   
         <!--  
-        <a class="item item-icon-left" menu-close ui-sref="app.criacao">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.criacao">
           <i class="icon ion-android-star"></i>
             Destaques
         </a>
         -->      
-        <a class="item item-icon-left" menu-close ui-sref="app.personagens">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.personagens">
           <i class="icon ion-ios-people"></i>
             Personagens
         </a> 
-        <a class="item item-icon-left" menu-close ui-sref="app.acoes">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.acoes">
           <i class="icon ion-clipboard"></i>
             Ações
         </a> 
-        <a class="item item-icon-left" menu-close ui-sref="app.dados">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.dados">
           <i class="icon ion-cube"></i>
             Rolador de Dados
         </a>      
-        <a class="item item-icon-left" menu-close ui-sref="app.admin" ng-show="personagem.narrador=='S'">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.admin" ng-show="personagem.narrador=='S'">
           <i class="icon ion-android-settings"></i>
             Administração
         </a>
         <!--
-        <a class="item item-icon-left" menu-close ui-sref="app.admin" ng-show="personagem.narrador=='S'">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.admin" ng-show="personagem.narrador=='S'">
           <i class="icon ion-ios-loop-strong"></i>
             Sincronizar
         </a>
         -->
-        <a class="item item-icon-left" menu-close ng-click="logout()">
+        <a class="item item-icon-left" menu-toggle ng-click="logout()">
           <i class="icon ion-log-out"></i>
           Sair
         </a>      

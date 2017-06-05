@@ -37,8 +37,11 @@
 
     });
 
-    app.controller('preRoomCtrl', function ($localStorage) {
-        
+
+    app.controller('roomsCtrl', function ($rootScope, $scope, personagemService, $localStorage) {
+        console.log('########################### rooms I ################');
+        $scope.rooms = $rootScope.personagem.chats;
+        //$scope.personagem = personagemService.personagemByID($localStorage.personagem.$id);
     });
 
 })();

@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'services',
-    'login', 'chat', 'personagem', 'acoes', 'dados', 'perfil'])
+    'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat'])
 
-    .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray) {
+    .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray, dialogService, $ionicHistory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -25,13 +25,17 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
             //stateChange event
             $ionicPlatform.registerBackButtonAction(function (event) {
                 if ($state.current.name == "app.home") {
-                    var sair = confirm("Sair?");
-                    if (sair) {
-                        navigator.app.exitApp(); //<-- remove this line to disable the exit
-                    }
-
+                    //var sair = confirm("Sair?");
+                    //$ionicHistory.clearHistory();
+                    var confirm = dialogService.confirm({template: "Sair do app?"});
+                    confirm.then(function (sair) {
+                        if (sair) {
+                            navigator.app.exitApp(); //<-- remove this line to disable the exit
+                        }
+                    });
                 } else {
-                    navigator.app.backHistory();
+                    //navigator.app.backHistory();
+                    $ionicHistory.goBack();
                 }
             }, 100);
 
@@ -200,6 +204,17 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                         controller: 'adminPersonagemCtrl'
                     }
                 }
+            })
+
+            .state('app.rooms', {
+                url: '/rooms',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/rooms.html',
+                        controller: 'roomsCtrl'
+                    }
+                }
+
             })
 
             .state('app.chat', {

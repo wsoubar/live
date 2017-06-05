@@ -3,7 +3,7 @@
 
     var app = angular.module('login', []);
 
-    app.controller('menuCtrl', function ($scope, $localStorage, $state, $ionicLoading, dialogService, personagemService) {
+    app.controller('menuCtrl', function ($rootScope, $scope, $localStorage, $state, $ionicLoading, dialogService, personagemService) {
 
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -24,9 +24,10 @@
         var personagem = personagemService.personagemByID(pid);
         personagem.$loaded().then(function () {
             $scope.personagem = personagem;
+            $rootScope.personagem = personagem;
             $localStorage.personagem = personagem;
             // $scope.personagem = angular.copy($localStorage.personagem);
-            console.log("personagem logado: " + personagem.nome);
+            console.log("personagem logado: ", personagem);
             $ionicLoading.hide();
         }).catch(function (error) {
             console.error("Error:", error);
@@ -206,5 +207,6 @@
 
 
     });
+
 
 })();
