@@ -15,7 +15,7 @@
         <div class="list list-inset" style="padding-bottom: 10px;">
          
           <label class="item item-input">
-            <input type="text" ng-model="formData.acao" placeholder="Ação">
+            <input type="text" ng-model="formData.acao" placeholder="Ação" maxlength="500">
           </label>
           <button class=" item button button-block button-positive" type="submit">
             Enviar
@@ -35,14 +35,19 @@
       -->
       <div class="list card" ng-repeat="acao in acoes | orderBy: '-data'">
           <!-- item-thumbnail-left  -->
-          {{permiteAcao($index, acao.tipo)}}          
-          <div class="item item-avatar item-divider">
-              <img ng-src="img/clanlogos/caitiff.png">
-              <h2><span ng-bind="acao.nome"></span></h2>
+          <div class="item item-divider item-icon-right">
+              <h2><span ng-bind="acao.nomePersonagem"></span></h2>
               <p>Enviada em <span>{{acao.data | date: 'dd/MM HH:mm'}}</span></p>
+              <a ng-click="apagarAcao(acao)" ng-show="!acao.resposta">
+              <i class="icon ion-trash-b"></i>
+              </a>
           </div>
           <div class="item item-body">
-            <p><span ng-bind="acao.acao"></span></p>
+            <span ng-bind="acao.acao"></span>
+          </div>
+          <div class="item item-body" ng-show="acao.resposta">
+            <b>Resposta</b>
+            <p><span ng-bind="acao.resposta"></span></p>
           </div>
 
       </div>

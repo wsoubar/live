@@ -60,18 +60,31 @@
 
     app.factory("acoesServices", ["$firebaseArray", function($firebaseArray) {
         var factory = {
-            acoesPorIdPersonagem: acoesPorIdPersonagem
+            acoesPorIdPersonagem: acoesPorIdPersonagem,
+            todasAcoes : todasAcoes,
+            acoesSemResposta : acoesSemResposta
         };
         
+        return factory;
+
+        //var rootRef = firebase.database().ref();
+
         function todasAcoes() {
             var ref = firebase.database().ref().child("acoes");
             return $firebaseArray(ref);
         }
 
         function acoesPorIdPersonagem(idPersonagem) {
-            var ref = firebase.database().ref().child("acoes").equalTo(idPersonagem, "idPersonagem");
+            console.log("id ", idPersonagem);
+            var ref = firebase.database().ref("acoes").orderByChild("idPersonagem").equalTo(idPersonagem);
             return $firebaseArray(ref);
         }
+
+        function acoesSemResposta() {
+            var ref = firebase.database().ref("acoes").orderByChild("respondido").equalTo("N");
+            return $firebaseArray(ref);
+        }
+
     }]);
 
     app.factory("personagemService", ["$firebaseArray", "$firebaseObject",

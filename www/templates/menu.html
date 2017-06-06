@@ -34,7 +34,7 @@
           <i class="icon ion-person"></i>
             <span ng-bind="personagem.nome"></span>
         </a>      
-        <a class="item item-icon-left" menu-toggle ui-sref="app.rooms">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.rooms" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-chatbubbles"></i>
             <span>Chats</span>
         </a>      
@@ -58,9 +58,9 @@
           <i class="icon ion-ios-people"></i>
             Personagens
         </a> 
-        <a class="item item-icon-left" menu-toggle ui-sref="app.acoes">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.acoes" ng-show="personagem.aprovado=='S'">
           <i class="icon ion-clipboard"></i>
-            Ações
+            Minhas Ações
         </a> 
         <a class="item item-icon-left" menu-toggle ui-sref="app.dados">
           <i class="icon ion-cube"></i>
