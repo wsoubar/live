@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'services',
-    'menu', 'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat'])
+    'menu', 'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat', 'admin'])
 
     .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray, dialogService, $ionicHistory) {
         $ionicPlatform.ready(function () {
@@ -187,7 +187,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
             })
 
             .state('app.admin', {
-                url: '/amin',
+                url: '/admin',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/admin.html',
@@ -196,8 +196,18 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 }
             })
 
+            .state('app.adminMenu', {
+                url: '/admin-menu',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/adminMenu.html',
+                        controller: 'adminMenuCtrl'
+                    }
+                }
+            })
+
             .state('app.adminPersonagem', {
-                url: '/adminPersonagem',
+                url: '/admin-personagem',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/adminPersonagem.html',

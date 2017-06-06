@@ -57,14 +57,23 @@
 
     }]);
 
-    /*
-      app.factory("citacoes", ["$firebaseArray", 
-        function($firebaseArray) {
-          var ref = firebase.database().ref().child("citacoes");
-          return $firebaseArray(ref);
+
+    app.factory("acoesServices", ["$firebaseArray", function($firebaseArray) {
+        var factory = {
+            acoesPorIdPersonagem: acoesPorIdPersonagem
+        };
+        
+        function todasAcoes() {
+            var ref = firebase.database().ref().child("acoes");
+            return $firebaseArray(ref);
         }
-      ]);
-    */
+
+        function acoesPorIdPersonagem(idPersonagem) {
+            var ref = firebase.database().ref().child("acoes").equalTo(idPersonagem, "idPersonagem");
+            return $firebaseArray(ref);
+        }
+    }]);
+
     app.factory("personagemService", ["$firebaseArray", "$firebaseObject",
         function ($firebaseArray, $firebaseObject) {
 
