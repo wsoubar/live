@@ -1,0 +1,22 @@
+<ion-view view-title="Ações">
+    <ion-content>
+        <div class="list card padding">
+            <!-- item-thumbnail-left  -->
+            <div class="item item-divider item-icon-right">
+                <h2><span ng-bind="acao.nomePersonagem"></span></h2>
+                <p>Enviada em <span>{{acao.data | date: 'dd/MM HH:mm'}}</span></p>
+            </div>
+            <div class="item item-body">
+                <span ng-bind="acao.acao"></span>
+            </div>
+            <div>
+                <label class="item item-input item-stacked-label">
+                    <input name="nome" type="text" placeholder="Responder aqui..." ng-model="acao.resposta">
+                </label>
+                <button class="button button-block button-positive">
+                    Responder
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

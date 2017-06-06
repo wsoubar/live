@@ -150,7 +150,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 url: '/editPersonagem',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/editPersonagem.html',
+                        templateUrl: 'templates/edit-personagem.html',
                         controller: 'editPersonagemCtrl'
                     }
                 }
@@ -200,7 +200,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 url: '/admin-menu',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/adminMenu.html',
+                        templateUrl: 'templates/admin-menu.html',
                         controller: 'adminMenuCtrl'
                     }
                 }
@@ -210,7 +210,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 url: '/admin-personagem',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/adminPersonagem.html',
+                        templateUrl: 'templates/admin-personagem.html',
                         controller: 'adminPersonagemCtrl'
                     }
                 }
@@ -244,6 +244,31 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                     'menuContent': {
                         templateUrl: 'templates/acoes.html',
                         controller: 'acoesCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.acoes-adm', {
+                url: '/acao-adm',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/acoes-adm.html',
+                        controller: 'acoesAdmCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.acoes-adm-jogador', {
+                url: '/acao-adm-jogador',
+                params: {
+                    acao: null
+                },                
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/acoes-adm-jogador.html',
+                        controller: 'acoesAdmJogadorCtrl'
                     }
                 }
 

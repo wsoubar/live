@@ -86,4 +86,25 @@
 
     });
 
+    app.controller('acoesAdmCtrl', function ($scope, acoesServices, $state) {
+        $scope.acoes = acoesServices.acoesSemResposta();
+        $scope.acoes.$loaded().then(function (data) {
+            console.log("carregado array..");
+        });
+
+        $scope.responder = function (acao) {
+            console.log('go responder', acao);
+            $state.go('app.acoes-adm-jogador', {acao: acao});
+        }
+
+    });
+
+    app.controller('acoesAdmJogadorCtrl', function ($scope, acoesServices, $state) {
+
+        console.log ('acao chegou?', $state.params.acao);
+        $scope.acao = $state.params.acao;
+
+    });
+
+
 })();
