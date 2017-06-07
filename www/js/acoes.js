@@ -25,7 +25,12 @@
         var personagem = $localStorage.personagem;
         var pid = $localStorage.personagem.$id;
 
-        console.log("acoes: " + pid);
+        var acaoCtrl = acoesServices.acoesAbertasPorJogador({idPersonagem: pid});
+        acaoCtrl.$loaded(function (obj) {
+            console.log('carregou acoesAbertas');
+            console.log('acoes abertas', obj)
+            $scope.permiteacao = (obj.acoesAbertas == 0);
+        });
 
         //var acoesRef = firebase.database().ref().child("acoes").child($localStorage.personagem.nome);
         //$scope.acoes = acoesServices.acoesPorIdPersonagem(pid);
@@ -37,6 +42,7 @@
 
         $scope.add = function (acao) {
             if (acao) {
+
                 var minhaAcao = {
                     data : Date.now(),
                     idPersonagem : pid,
@@ -50,6 +56,18 @@
 
                 $scope.acoes.$add(minhaAcao).then(function (ref) {
                     $scope.formData.acao = '';
+                    $scope.permiteacao = false;
+                    $scope.enviarMsg = false;
+                    acaoCtrl.acoesAbertas = 1;
+                    acaoCtrl.$save().then(function (obj) {
+                        console.log('acao ctrl salvo');
+                    });
+                    $ionicLoading.show({
+                        template: 'Ação criada com sucesso',
+                        duration: 1500
+                    }).then(function(){
+                        console.log("The loading indicator is now displayed");
+                    });
                 });
             }
         }
@@ -60,6 +78,12 @@
                 if (sucesso) {
                     $scope.acoes.$remove(acao)
                     .then(function (r) {
+                        acaoCtrl.acoesAbertas = 0;
+                        acaoCtrl.$save().then(function (obj) {
+                            $scope.permiteacao = true;
+                            $scope.enviarMsg = false;
+                            console.log('acao ctrl salvo');
+                        });
                         $ionicLoading.show({
                             template: 'Ação removida com sucesso',
                             duration: 1500
@@ -71,14 +95,6 @@
                 }
             });
         }
-
-        /*
-            $scope.permiteAcao = function (index, tipo) {
-                if (index==0 && tipo == 'N') {
-                    $scope.permiteacao == false;
-                }
-            };
-        */
 
         $scope.mostraEnvio = function () {
             $scope.enviarMsg = !$scope.enviarMsg;
@@ -99,11 +115,44 @@
 
     });
 
-    app.controller('acoesAdmJogadorCtrl', function ($scope, acoesServices, $state) {
+    app.controller('acoesAdmJogadorCtrl', function ($scope, dialogService, acoesServices, $state, 
+        $ionicLoading, $localStorage) {
+        //console.log ('acao chegou?', $state.params.acao);
+        $scope.acao = acoesServices.acaoByID($state.params.acao.$id);
+        //$scope.acao = $state.params.acao;
+        //console.log ('sim, chegou', $scope.acao);
 
-        console.log ('acao chegou?', $state.params.acao);
-        $scope.acao = $state.params.acao;
+        $scope.responder = function () {
+            var confirm = dialogService.confirm({template: "Confirma a resposta?"});
+            confirm.then(function name(ok) {
+                if (ok) {
+                    $scope.acao.narrador = $localStorage.personagem.jogador;
+                    $scope.acao.respondido = 'S';
+                    $scope.acao.dataResposta = Date.now();
 
+                    $scope.acao.$save().then(function (ref) {
+                        var ok = (ref.key === $scope.acao.$id); // true
+                        console.log('sucesso? ' + ok);
+
+                        $ionicLoading.show({
+                            template: 'Informações atualizadas com sucesso.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                        $state.go("app.acoes-adm");
+                    }, function (error) {
+                        console.log("Error:", error);
+                        $ionicLoading.show({
+                            template: 'Erro ao tentar responder a ação.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                    });
+                }
+            });
+        }
     });
 
 

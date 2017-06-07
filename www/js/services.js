@@ -58,16 +58,25 @@
     }]);
 
 
-    app.factory("acoesServices", ["$firebaseArray", function($firebaseArray) {
+    app.factory("acoesServices", ["$firebaseArray", "$firebaseObject", function($firebaseArray, $firebaseObject) {
         var factory = {
             acoesPorIdPersonagem: acoesPorIdPersonagem,
             todasAcoes : todasAcoes,
-            acoesSemResposta : acoesSemResposta
+            acoesSemResposta : acoesSemResposta,
+            acaoByID : acaoByID,
+            acoesAbertasPorJogador : acoesAbertasPorJogador
         };
         
         return factory;
 
         //var rootRef = firebase.database().ref();
+
+        function acoesAbertasPorJogador(params) {
+            console.log("id ", params);
+            var ref = firebase.database().ref("acoesCtrl").child(params.idPersonagem);
+            //ref.orderByChild('idPersonagem').equalTo(params.idPersonagem);
+            return $firebaseObject(ref);
+        }
 
         function todasAcoes() {
             var ref = firebase.database().ref().child("acoes");
@@ -83,6 +92,11 @@
         function acoesSemResposta() {
             var ref = firebase.database().ref("acoes").orderByChild("respondido").equalTo("N");
             return $firebaseArray(ref);
+        }
+
+        function acaoByID(id) {
+            var ref = firebase.database().ref("acoes").child(id);
+            return $firebaseObject(ref);
         }
 
     }]);

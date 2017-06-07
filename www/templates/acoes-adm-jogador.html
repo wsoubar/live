@@ -10,12 +10,14 @@
                 <span ng-bind="acao.acao"></span>
             </div>
             <div>
-                <label class="item item-input item-stacked-label">
-                    <input name="nome" type="text" placeholder="Responder aqui..." ng-model="acao.resposta">
-                </label>
-                <button class="button button-block button-positive">
-                    Responder
-                </button>
+                <form name="formAcao" ng-submit="responder()" novalidate>
+                    <label class="item item-input item-stacked-label">
+                        <input name="nome" type="text" placeholder="Responder aqui..." ng-model="acao.resposta">
+                    </label>
+                    <button type="submit" class="button button-block button-positive">
+                        Responder
+                    </button>
+                </form>
             </div>
         </div>
     </ion-content>
