@@ -120,8 +120,11 @@
         $ionicLoading, $localStorage) {
         //console.log ('acao chegou?', $state.params.acao);
         $scope.acao = acoesServices.acaoByID($state.params.acao.$id);
-        //$scope.acao = $state.params.acao;
-        //console.log ('sim, chegou', $scope.acao);
+
+        var acaoCtrl = acoesServices.acoesAbertasPorJogador({idPersonagem: $state.params.acao.$id});
+        acaoCtrl.$loaded(function (obj) {
+            console.log('carregou acoesAbertas');
+        });
 
         $scope.responder = function () {
             var confirm = dialogService.confirm({template: "Confirma a resposta?"});
@@ -134,6 +137,10 @@
                     $scope.acao.$save().then(function (ref) {
                         var ok = (ref.key === $scope.acao.$id); // true
                         console.log('sucesso? ' + ok);
+                        acaoCtrl.acoesAbertas = 0;
+                        acaoCtrl.$save().then(function (obj) {
+                            console.log('acao ctrl salvo');
+                        });
 
                         $ionicLoading.show({
                             template: 'Informações atualizadas com sucesso.',

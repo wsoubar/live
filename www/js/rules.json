@@ -12,6 +12,15 @@
             ".read": "auth != null",
             ".write": "auth != null"
         },
+        "acoes": {
+            ".read": "auth != null",
+            ".write": "auth != null",
+            ".indexOn": ["idPersonagem", "respondido"]
+        },
+        "acoesCtrl": {
+            ".read": "auth != null",
+            ".write": "auth != null"
+        },
         "citacoes": {
             ".read": "auth != null",
             ".write": "auth != null"
@@ -24,10 +33,18 @@
             ".read": "auth != null",
             ".write": false
         },
+        "xps": {
+            ".read": "auth != null",
+            ".write": "auth != null"
+        },
         "personagens": {
             ".indexOn": [
                 "userid"
             ],
+            ".read": "auth != null",
+            ".write": "auth != null"
+        },
+        "personagensInfo": {
             ".read": "auth != null",
             ".write": "auth != null"
         }
