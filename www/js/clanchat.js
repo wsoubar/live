@@ -44,4 +44,7 @@
         //$scope.personagem = personagemService.personagemByID($localStorage.personagem.$id);
     });
 
+    app.controller('chatsAdmCtrl', function ($rootScope, $scope, personagemService, $localStorage) {
+    });
+
 })();

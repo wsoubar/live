@@ -29,7 +29,7 @@
         acaoCtrl.$loaded(function (obj) {
             console.log('carregou acoesAbertas');
             console.log('acoes abertas', obj)
-            $scope.permiteacao = (obj.acoesAbertas == 0);
+            $scope.permiteacao = (obj.acoesAbertas != 1);
         });
 
         //var acoesRef = firebase.database().ref().child("acoes").child($localStorage.personagem.nome);
@@ -47,6 +47,7 @@
                     data : Date.now(),
                     idPersonagem : pid,
                     nomePersonagem : personagem.nome,
+                    jogador: personagem.jogador,
                     acao: acao,
                     respondido: 'N',
                     resposta: '',

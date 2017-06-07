@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'services',
-    'menu', 'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat', 'admin'])
+    'menu', 'login', 'personagem', 'acoes', 'dados', 'perfil', 'chat', 'admin', 'pagamentos'])
 
     .run(function ($ionicPlatform, $rootScope, $localStorage, $state, $firebaseArray, dialogService, $ionicHistory) {
         $ionicPlatform.ready(function () {
@@ -269,6 +269,28 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                     'menuContent': {
                         templateUrl: 'templates/acoes-adm-jogador.html',
                         controller: 'acoesAdmJogadorCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.pagto-adm', {
+                url: '/pagto-adm',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/pagto-adm.html',
+                        controller: 'pagtoAdmCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.chats-adm', {
+                url: '/chats-adm',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/chats-adm.html',
+                        controller: 'chatsAdmCtrl'
                     }
                 }
 
