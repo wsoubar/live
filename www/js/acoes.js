@@ -121,7 +121,7 @@
         //console.log ('acao chegou?', $state.params.acao);
         $scope.acao = acoesServices.acaoByID($state.params.acao.$id);
 
-        var acaoCtrl = acoesServices.acoesAbertasPorJogador({idPersonagem: $state.params.acao.$id});
+        var acaoCtrl = acoesServices.acoesAbertasPorJogador({idPersonagem: $state.params.acao.idPersonagem});
         acaoCtrl.$loaded(function (obj) {
             console.log('carregou acoesAbertas');
         });

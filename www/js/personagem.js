@@ -4,7 +4,7 @@
     var app = angular.module('personagem', []);
 
     app.controller('editPersonagemCtrl', function ($scope, $localStorage, $state, $firebaseObject,
-        $firebaseArray, $ionicLoading) {
+        $firebaseArray, $ionicLoading, personagemService) {
         $scope.tab = 0;
         $scope.p = {};
         $scope.xpArray = []
@@ -17,9 +17,9 @@
         
         var pid = $localStorage.personagem.$id;
         console.log('personagem.$id', pid);
-        var ref = firebase.database().ref().child("personagens").child(pid);
+        //var ref = firebase.database().ref().child("personagens").child(pid);
 
-        var personagem = $firebaseObject(ref);
+        var personagem =  personagemService.personagemByID(pid); // $firebaseObject(ref);
         personagem.$loaded().then(function () {
             $scope.p = personagem;
             console.log('personagem carregado');
@@ -30,8 +30,8 @@
             $ionicLoading.hide();
         });
 
-        var xpref = firebase.database().ref().child("xps").child(pid);
-        var xps = $firebaseArray(xpref);
+        //var xpref = firebase.database().ref().child("xps").child(pid);
+        var xps = personagemService.XPsByPersonagem(pid);
         xps.$loaded().then(function () {
             $scope.xpArray = xps;
             console.log('xps carregados');

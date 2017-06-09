@@ -108,7 +108,8 @@
                 personagemByUserID: personagemByUserID,
                 personagens: personagens,
                 personagemByID : personagemByID,
-                XPsByPersonagem : XPsByPersonagem
+                XPsByPersonagem : XPsByPersonagem,
+                personagemInfoByPID : personagemInfoByPID
             };
 
             return factory;
@@ -135,6 +136,17 @@
                 return $firebaseArray(xpref);
             }
 
+            function personagemInfoByPID(pid) {
+                var ref = firebase.database().ref().child("personagensInfo").child(pid);
+                return $firebaseObject(ref);                
+            }
+
+/*
+            function deletePersonagemInfo(pih) {
+                var ref = firebase.database().ref().child("personagemInfo").child(pid);
+                return ref;                
+            }
+*/
         }
     ]);
 

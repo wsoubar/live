@@ -65,6 +65,45 @@
             }
         }
 
+        //personagemInfo();
+
+        function personagemInfo(options) {
+            var total = 0;
+            var personagens = personagemService.personagens();
+            personagens.$loaded().then(function () {
+                console.log('total: ' +personagens.length);
+                angular.forEach(personagens, function (personagem) {
+                    //console.log('personagem: ' + personagem.nome);
+
+                    var pi = personagemService.personagemInfoByPID(personagem.$id);
+                    pi.$loaded().then(function () {
+                        console.log('Salva PI para ' + personagem.$id + '-'+personagem.jogador);
+                        pi.planilha = personagem.planilha;
+                        pi.historia = personagem.historia;
+                        pi.rumores = personagem.rumores;
+                        pi.antecedentes = personagem.antecedentes;
+
+                        pi.$save().then(function (params) {
+                            console.log('PI salvo com sucesso', pi.key);
+                        });
+
+                        // console.log('Data: ' + JSON.stringify(itemxp));
+                        // console.log(new Date(itemxp.data));
+/*
+                        xps.$add(itemxp)
+                        .then(function (r) {
+                            console.log("XP atribuído com sucesso!");
+                        });
+*/
+
+                    }).catch(function (error) {
+                        console.error("Error:", error);
+                    });
+                    
+                });
+            });
+        }
+
 
 
         function distXP(options) {
