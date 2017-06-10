@@ -1,18 +1,22 @@
 <ion-view view-title="Meu personagem">
+<!--
     <ion-nav-buttons side="right">
         <button class="button" ng-click="salvar()" >
           <i class="icon ion-ios-cloud-upload"></i>
         </button>
     </ion-nav-buttons>
+-->
     <ion-content>
         <form name="formplanilha">
         <div class="item item-divider">
             <b><span ng-bind="personagem.nome"></span><br/></b>
+            <span class="badge badge-positive" ng-bind="totalXP"></span>
             <span ng-bind="personagem.clan"></span> - <span ng-bind="personagem.seita"></span><br/>
                         
         </div>
         <div class="list">
-            <a class="item item-icon-left item-icon-right" ui-sref="app.acoes-adm">
+            <a class="item item-icon-left item-icon-right" 
+                ui-sref="app.edit-personagem-historia({pid: personagem.$id, aprovado: personagem.aprovado})">
                 <i class="icon ion-document"></i>
                 História
                 <i class="icon ion-ios-arrow-right"></i>
@@ -32,39 +36,11 @@
                 Antecedentes
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
-            <a class="item item-icon-left item-icon-right" ui-sref="app.acoes-adm">
-                <i class="icon ion-android-cart"></i>
+            <a class="item item-icon-left item-icon-right" ng-click="exibeXP()">
+                <i class="icon ion-ios-cart"></i>
                 Pontos de Experiência
-                <span class="badge badge-positive" ng-bind="getTotalXP()" style="margin-left: 50px;"></span>
                 <i class="icon ion-ios-arrow-right" ></i>
             </a>
-        </div>
-        <div id="tab1" class="list" ng-show="tab==0">
-<!--            <label class="item item-input item-stacked-label" >
-                <span class="input-label">Nome do personagem</span>
-                <input type="text" ng-model="p.nome" 
-                    ng-show="personagem.aprovado=='N'">
-                </textarea>
-                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.nome}}</pre>
-            </label>
--->
-            <div class="item item-divider item-icon-left" ng-click="shXP=!shXP">
-            Pontos de experiência
-            <span class="badge badge-positive" ng-bind="getTotalXP()"></span>
-            </div>
-
-            <div class="list" ng-show="shXP">
-              <div class="item item-divider row">
-                  <div class="col"><b>Data</b></div>
-                  <div class="col"><b>Descrição</b></div>
-                  <div class="col"><b>Valor</b></div>
-              </div>
-              <div class="item item-text-wrap row" ng-repeat="xp in xpArray | orderBy : '-data'">
-                  <div class="col">{{xp.data | date : 'dd/MM/yyyy'}}</div>
-                  <div class="col">{{xp.descricao}}</div>
-                  <div class="col">{{xp.valor}}</div>
-              </div>
-            </div>
         </div>
         <div id="tab1" ng-show="tab==1">
             <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
@@ -75,17 +51,6 @@
                     placeholder="Edite sua planilha aqui. Ou então copie e cole.">
                 </textarea>
                 <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.planilha}}</pre>
-            </label>
-        </div>
-        <div id="tab1" ng-show="tab==2">
-            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
-                <span class="input-label"><b>História</b></span>
-                <textarea ng-model="p.historia" 
-                    style="height: 100vh; padding-bottom: 70px"  
-                    ng-show="personagem.aprovado=='N'"
-                    placeholder="Escreva aqui a história real do seu personagem.">
-                </textarea>
-                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.historia}}</pre>
             </label>
         </div>
         <div id="tab1" ng-show="tab==3">
@@ -112,29 +77,4 @@
         </div>
         </form>
   </ion-content>
-        <div class="row tabs-striped tabs-color-assertive">
-            <div class="tabs tabs-icon-top">
-                <a class="tab-item {{tab==0?'active': ''}}" ng-click="tab=0">
-                    <i class="icon ion-card"></i>
-                    Geral 
-                </a>
-                <a class="tab-item {{tab==1?'active': ''}}" ng-click="tab=1">
-                    <i class="icon ion-clipboard"></i>
-                    Planilha 
-                </a>
-                <a class="tab-item {{tab==2?'active': ''}}" ng-click="tab=2">
-                    <i class="icon ion-document"></i>
-                    História
-                </a>
-                <a class="tab-item {{tab==3?'active': ''}}" ng-click="tab=3">
-                    <i class="icon ion-document-text"></i>
-                    Rumores
-                </a>
-                <a class="tab-item {{tab==4?'active': ''}}" ng-click="tab=4">
-                    <i class="icon ion-leaf"></i>
-                    Antecedentes
-                </a>
-            </div>
-
-        </div>
 </ion-view>

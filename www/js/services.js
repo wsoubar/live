@@ -29,7 +29,8 @@
 
     app.factory('utilServices', [function name() {
         var factory = {
-            diff : diff
+            diff : diff,
+            getTotalXP: getTotalXP
         };
         return factory;
 
@@ -38,6 +39,14 @@
             return Math.abs(Math.round(diff));
         }
 
+        function getTotalXP (xpArray) {
+            var totalxp = 0
+            for (var i = 0; i < xpArray.length; i++) {
+                var xpelement = xpArray[i];
+                totalxp += xpelement.valor;
+            }
+            return totalxp;
+        };
 
     }]);
 
@@ -109,7 +118,8 @@
                 personagens: personagens,
                 personagemByID : personagemByID,
                 XPsByPersonagem : XPsByPersonagem,
-                personagemInfoByPID : personagemInfoByPID
+                personagemInfoByPID : personagemInfoByPID,
+                personagemInfoHistoria : personagemInfoHistoria
             };
 
             return factory;
@@ -138,6 +148,11 @@
 
             function personagemInfoByPID(pid) {
                 var ref = firebase.database().ref().child("personagensInfo").child(pid);
+                return $firebaseObject(ref);                
+            }
+
+            function personagemInfoHistoria(pid) {
+                var ref = firebase.database().ref("personagensInfo/"+pid+'/historia');
                 return $firebaseObject(ref);                
             }
 

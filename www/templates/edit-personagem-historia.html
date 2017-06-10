@@ -1,0 +1,24 @@
+<ion-view view-title="História">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                <span class="input-label"><b>História</b></span>
+                <textarea ng-model="historia" 
+                    
+                    style="max-width: 100%;
+width: 100%;
+height: 60vh;"
+                    ng-show="aprovado=='N'"
+                    placeholder="Escreva aqui a história real do seu personagem.">
+                </textarea>
+                <pre ng-show="aprovado=='S'" style="margin-right: 10px;">{{historia}}</pre>
+            </label>
+        </div>
+        <ion-footer-bar class="bar">
+            <div class="button-bar">
+                <a class="button button-positive icon-left ion-checkmark">Salvar</a>
+                <a class="button button-assertive icon-left ion-close">Cancelar</a>
+            </div>
+        </ion-footer-bar>
+    </ion-content>
+</ion-view>

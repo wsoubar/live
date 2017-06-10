@@ -1,0 +1,23 @@
+<ion-view view-title="Meu XP">
+    <ion-content>
+        <div class="list" >
+            <div class="item item-divider item-icon-left" >
+            Pontos de experiência
+            <span class="badge badge-positive" ng-bind="totalXP"></span>
+            </div>
+
+            <div class="list">
+              <div class="item item-divider row">
+                  <div class="col"><b>Data</b></div>
+                  <div class="col"><b>Descrição</b></div>
+                  <div class="col"><b>Valor</b></div>
+              </div>
+              <div class="item item-text-wrap row" ng-repeat="xp in xpArray | orderBy : '-data'">
+                  <div class="col">{{xp.data | date : 'dd/MM/yyyy'}}</div>
+                  <div class="col">{{xp.descricao}}</div>
+                  <div class="col">{{xp.valor}}</div>
+              </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -145,15 +145,40 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 }
             })
 
-            .state('app.editPersonagem', {
+            .state('app.edit-personagem', {
                 cache: false,
-                url: '/editPersonagem',
+                url: '/edit-personagem',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/edit-personagem.html',
                         controller: 'editPersonagemCtrl'
                     }
                 }
+            })
+
+            .state('app.edit-personagem-xp', {
+                url: '/edit-personagem-xp',
+                params: {
+                    xpArray: null
+                },                
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/edit-personagem-xp.html',
+                        controller: 'editPersonagemXPCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.edit-personagem-historia', {
+                url: '/edit-personagem-historia/:pid/:aprovado',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/edit-personagem-historia.html',
+                        controller: 'editPersonagemHistoriaCtrl'
+                    }
+                }
+
             })
 
             .state('app.personagens', {
