@@ -119,7 +119,7 @@
                 personagemByID : personagemByID,
                 XPsByPersonagem : XPsByPersonagem,
                 personagemInfoByPID : personagemInfoByPID,
-                personagemInfoHistoria : personagemInfoHistoria
+                personagemInfo : personagemInfo
             };
 
             return factory;
@@ -151,8 +151,8 @@
                 return $firebaseObject(ref);                
             }
 
-            function personagemInfoHistoria(pid) {
-                var ref = firebase.database().ref("personagensInfo/"+pid+'/historia');
+            function personagemInfo(pid, campo) {
+                var ref = firebase.database().ref("personagensInfo/"+pid+'/'+campo);
                 return $firebaseObject(ref);                
             }
 

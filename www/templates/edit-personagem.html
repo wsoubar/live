@@ -16,22 +16,25 @@
         </div>
         <div class="list">
             <a class="item item-icon-left item-icon-right" 
-                ui-sref="app.edit-personagem-historia({pid: personagem.$id, aprovado: personagem.aprovado})">
+                ui-sref="app.edit-personagem-campo({campo: 'historia', pid: personagem.$id, aprovado: personagem.aprovado})">
                 <i class="icon ion-document"></i>
                 História
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
-            <a class="item item-icon-left item-icon-right" ui-sref="app.acoes-adm">
+            <a class="item item-icon-left item-icon-right" 
+                ui-sref="app.edit-personagem-campo({campo: 'planilha', pid: personagem.$id, aprovado: personagem.aprovado})">
                 <i class="icon ion-clipboard"></i>
                 Planilha
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
-            <a class="item item-icon-left item-icon-right" ui-sref="app.acoes-adm">
+            <a class="item item-icon-left item-icon-right" 
+                ui-sref="app.edit-personagem-campo({campo: 'rumores', pid: personagem.$id, aprovado: personagem.aprovado})">
                 <i class="icon ion-document-text"></i>
                 Rumores
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
-            <a class="item item-icon-left item-icon-right" ui-sref="app.acoes-adm">
+            <a class="item item-icon-left item-icon-right" 
+                ui-sref="app.edit-personagem-campo({campo: 'antecedentes', pid: personagem.$id, aprovado: personagem.aprovado})">
                 <i class="icon ion-leaf"></i>
                 Antecedentes
                 <i class="icon ion-ios-arrow-right"></i>
@@ -41,39 +44,6 @@
                 Pontos de Experiência
                 <i class="icon ion-ios-arrow-right" ></i>
             </a>
-        </div>
-        <div id="tab1" ng-show="tab==1">
-            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
-                <span class="input-label"><b>Planilha</b></span>
-                <textarea ng-model="p.planilha" 
-                    style="height: 100vh; padding-bottom: 70px" 
-                    ng-show="personagem.aprovado=='N'"
-                    placeholder="Edite sua planilha aqui. Ou então copie e cole.">
-                </textarea>
-                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.planilha}}</pre>
-            </label>
-        </div>
-        <div id="tab1" ng-show="tab==3">
-            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
-                <span class="input-label"><b>Rumores</b></span>
-                <textarea ng-model="p.rumores" 
-                    style="height: 100vh; padding-bottom: 70px"  
-                    ng-show="personagem.aprovado=='N'"
-                    placeholder="Descreva aqui rumores que podem ou não ser verdadeiros sobre o seu personagem.">
-                </textarea>
-                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.rumores}}</pre>
-            </label>
-        </div>
-        <div id="tab1" ng-show="tab==4">
-            <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
-                <span class="input-label"><b>Antecedentes</b></span>
-                <textarea ng-model="p.antecedentes" 
-                    style="height: 100vh; padding-bottom: 70px" 
-                    ng-show="personagem.aprovado=='N'"
-                    placeholder="Espaço para detalhamento dos antecedentes.">
-                </textarea>
-                <pre ng-show="personagem.aprovado=='S'" style="margin-right: 10px;">{{p.antecedentes}}</pre>
-            </label>
         </div>
         </form>
   </ion-content>

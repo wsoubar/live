@@ -170,12 +170,12 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
 
             })
 
-            .state('app.edit-personagem-historia', {
-                url: '/edit-personagem-historia/:pid/:aprovado',
+            .state('app.edit-personagem-campo', {
+                url: '/edit-personagem-campo/:campo/:pid/:aprovado',
                 views: {
                     'menuContent': {
-                        templateUrl: 'templates/edit-personagem-historia.html',
-                        controller: 'editPersonagemHistoriaCtrl'
+                        templateUrl: 'templates/edit-personagem-campo.html',
+                        controller: 'editPersonagemCampoCtrl'
                     }
                 }
 

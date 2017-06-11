@@ -1,0 +1,20 @@
+<ion-view view-title="{{info.titulo}}">
+    <ion-nav-buttons side="right">
+        <button class="button" ng-click="salvar()" >
+          <i class="icon ion-ios-cloud-upload"></i>
+        </button>
+    </ion-nav-buttons>
+    <ion-content>
+            <div class="list">
+                <label class="item item-input item-stacked-label" style="border-bottom: 0px;">
+                    <span class="input-label"><b>{{info.titulo}}</b></span>
+                    <textarea ng-model="campo.$value" 
+                        rows="30"
+                        ng-show="aprovado=='N'"
+                        placeholder="{{info.placeholder}}">
+                    </textarea>
+                    <pre ng-show="aprovado=='S'" style="margin-right: 10px;">{{campo.$value}}</pre>
+                </label>
+            </div>
+    </ion-content>
+</ion-view>

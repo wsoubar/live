@@ -192,17 +192,63 @@
 
     });
 
-    app.controller('editPersonagemHistoriaCtrl', function ($scope, $localStorage, $state, 
-        $stateParams, utilServices, personagemService) {
-        console.log("editPersonagemHistoriaCtrl ::", $stateParams.pid);
-        $scope.historia = "";
+    app.controller('editPersonagemCampoCtrl', function ($scope, $localStorage, $state, 
+        $stateParams, utilServices, personagemService, $ionicLoading) {
+        console.log("editPersonagemCampoCtrl ::", $stateParams.pid);
+        var campos = {
+            historia: {
+                titulo: "História",
+                placeholder: "Escreva aqui a sua história real."
+            },
+            planilha: {
+                titulo: "Planilha",
+                placeholder: "Preencha com a planilha de seu personagem para aprovação dos naradores."
+            },
+            rumores: {
+                titulo: "Rumores",
+                placeholder: "Seus rumores. O que ouviram dizer sobre você, verdade ou não."
+            },
+            antecedentes: {
+                titulo: "Antecedentes",
+                placeholder: "Detalhe seus antecedentes."
+            }
+        };
+        $scope.info = {};
         $scope.aprovado = $stateParams.aprovado;
-        
-        var hist = personagemService.personagemInfoHistoria($stateParams.pid)
-        hist.$loaded().then(function (h) {
-            console.log("h>", h.$value);
-            $scope.historia = h.$value;
+
+        var campo = personagemService.personagemInfo($stateParams.pid, $stateParams.campo)
+        campo.$loaded().then(function (h) {
+            //console.log("h>", h.$value);
+            $scope.campo = campo;
+            $scope.info = campos[$stateParams.campo];
+            console.log('info', $scope.info);
         });
+
+        $scope.salvar = function () {
+            $scope.campo.$save().then(function (ref) {
+                var ok = (ref.key === $scope.campo.$id); // true
+                console.log('sucesso? ' + ok);
+                //console.log('value ', $scope.historia.$value);
+                // $localStorage.personagem = $scope.p;
+
+                $ionicLoading.show({
+                    template: 'Informações atualizadas com sucesso.',
+                    duration: 1500
+                }).then(function () {
+                    console.log("The loading indicator is now displayed");
+                });
+
+            }, function (error) {
+                console.log("Error:", error);
+                $ionicLoading.show({
+                    template: 'Erro ao tentar atualizar informações.',
+                    duration: 1500
+                }).then(function () {
+                    console.log("The loading indicator is now displayed");
+                });
+            });
+        }
+        
     });
 
 
