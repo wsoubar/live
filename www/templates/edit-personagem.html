@@ -8,33 +8,48 @@
 -->
     <ion-content>
         <form name="formplanilha">
+        <!--
         <div class="item item-divider">
-            <b><span ng-bind="personagem.nome"></span><br/></b>
+            <b><span ng-bind="editPersonagem.nome"></span><br/></b>
             <span class="badge badge-positive" ng-bind="totalXP"></span>
-            <span ng-bind="personagem.clan"></span> - <span ng-bind="personagem.seita"></span><br/>
+            <span ng-bind="editPersonagem.clan"></span> - <span ng-bind="editPersonagem.seita"></span><br/>
                         
         </div>
+        -->
+        <div class="item item-thumbnail-left">
+            <img src="img/clanlogos/caitiff.png">
+            <h2><b><span ng-bind="pc.nome"></span></b></h2>
+            <span class="badge badge-positive pull-right" ng-bind="totalXP"></span>
+            <p><span ng-bind="pc.seita"></span> - <span ng-bind="pc.clan"></span></p>
+            <p>Jogador: <b><span ng-bind="pc.jogador"></span></b></p>
+            <p>Aprovado: <b><span ng-bind="pc.aprovado"></span></b></p>
+            <div ng-show="personagem.narrador !='S'">
+              <button class="button button-positive" ng-show="pc.aprovado == 'N'" ng-click="aprovar()" >Aprovar</button>
+              <button class="button button-assertive" ng-show="pc.aprovado == 'S'" ng-click="reprovar()">Reprovar</button>
+            </div>
+        </div>
+        
         <div class="list">
             <a class="item item-icon-left item-icon-right" 
-                ui-sref="app.edit-personagem-campo({campo: 'historia', pid: personagem.$id, aprovado: personagem.aprovado})">
+                ui-sref="app.edit-personagem-campo({campo: 'historia', pid: pc.$id, aprovado: pc.aprovado})">
                 <i class="icon ion-document"></i>
                 História
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
             <a class="item item-icon-left item-icon-right" 
-                ui-sref="app.edit-personagem-campo({campo: 'planilha', pid: personagem.$id, aprovado: personagem.aprovado})">
+                ui-sref="app.edit-personagem-campo({campo: 'planilha', pid: pc.$id, aprovado: pc.aprovado})">
                 <i class="icon ion-clipboard"></i>
                 Planilha
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
             <a class="item item-icon-left item-icon-right" 
-                ui-sref="app.edit-personagem-campo({campo: 'rumores', pid: personagem.$id, aprovado: personagem.aprovado})">
+                ui-sref="app.edit-personagem-campo({campo: 'rumores', pid: pc.$id, aprovado: pc.aprovado})">
                 <i class="icon ion-document-text"></i>
                 Rumores
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
             <a class="item item-icon-left item-icon-right" 
-                ui-sref="app.edit-personagem-campo({campo: 'antecedentes', pid: personagem.$id, aprovado: personagem.aprovado})">
+                ui-sref="app.edit-personagem-campo({campo: 'antecedentes', pid: pc.$id, aprovado: pc.aprovado})">
                 <i class="icon ion-leaf"></i>
                 Antecedentes
                 <i class="icon ion-ios-arrow-right"></i>

@@ -11,12 +11,38 @@
                   <div class="col"><b>Data</b></div>
                   <div class="col"><b>Descrição</b></div>
                   <div class="col"><b>Valor</b></div>
+                  <div class="col col-20" ng-show="personagem.narrador =='S'">&nbsp;</div>
               </div>
               <div class="item item-text-wrap row" ng-repeat="xp in xpArray | orderBy : '-data'">
                   <div class="col">{{xp.data | date : 'dd/MM/yyyy'}}</div>
                   <div class="col">{{xp.descricao}}</div>
                   <div class="col">{{xp.valor}}</div>
+                  <div class="col col-20" ng-show="personagem.narrador =='S'"><button class="button icon ion-trash-b" ng-click="delXP(xp)"></button></div>
               </div>
+            </div>
+            <div class="list" ng-show="personagem.narrador =='S'">
+              <form name="vm.xpform" ng-submit="addXP()" novalidate>
+              <div class="item item-divider row">
+                Adicionar XP
+              </div>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">Data</span>
+                  <input type="date" name="data" ng-model="xpData.data" required>
+                  <p style="color: red" ng-show="xpform.data.$error.required && !xpform.data.$pristine">* Data é obrigatória</p>
+              </label>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">Descrição</span>
+                  <input type="text" name="descricao" ng-model="xpData.descricao" required>
+                  <p style="color: red" ng-show="xpform.descricao.$error.required && !xpform.descricao.$pristine">* Descrição é obrigatória</p>
+              </label>
+              <label class="item item-input item-stacked-label" >
+                  <span class="input-label">valor</span>
+                  <input type="number" ng-model="xpData.valor" required>
+              </label>
+              <div>
+                  <button type="submit" class="button button-block button-positive" >Adicionar</button>
+              </div>
+              </form>
             </div>
         </div>
     </ion-content>

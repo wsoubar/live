@@ -147,7 +147,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
 
             .state('app.edit-personagem', {
                 cache: false,
-                url: '/edit-personagem',
+                url: '/edit-personagem/:pid',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/edit-personagem.html',

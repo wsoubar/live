@@ -27,8 +27,8 @@
 
         $scope.selecionaPersonagem = function (p) {
             console.log('Personagem', p);
-            $localStorage.admPersonagem = p;
-            $state.go("app.adminPersonagem");
+            //$localStorage.admPersonagem = p;
+            $state.go("app.edit-personagem", {pid: p.$id});
         }
     });
 

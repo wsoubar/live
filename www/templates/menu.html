@@ -30,7 +30,7 @@
           <p>{{user.jogador}}</p>
         </div>
 -->
-        <a class="item item-icon-left" menu-toggle ui-sref="app.edit-personagem">
+        <a class="item item-icon-left" menu-toggle ui-sref="app.edit-personagem({pid: personagem.$id})">
           <i class="icon ion-person"></i>
             <span ng-bind="personagem.nome"></span>
         </a>      
@@ -38,22 +38,6 @@
           <i class="icon ion-chatbubbles"></i>
             <span>Chats</span>
         </a>      
-        <!-- 
-        <a class="item item-icon-left" menu-toggle ui-sref="app.chat({chatid: personagem.clan})" ng-show="personagem.aprovado=='S'">
-          <i class="icon ion-chatbubbles"></i>
-            <span ng-bind="personagem.clan"></span>
-        </a>      
-        <a class="item item-icon-left" menu-toggle ui-sref="app.chat({chatid: personagem.seita})" ng-show="personagem.aprovado=='S'">
-          <i class="icon ion-chatbubbles"></i>
-            <span ng-bind="personagem.seita"></span>
-        </a> 
-        -->   
-        <!--  
-        <a class="item item-icon-left" menu-toggle ui-sref="app.criacao">
-          <i class="icon ion-android-star"></i>
-            Destaques
-        </a>
-        -->      
         <a class="item item-icon-left" menu-toggle ui-sref="app.personagens">
           <i class="icon ion-ios-people"></i>
             Personagens

@@ -3,11 +3,11 @@
 
     var app = angular.module('personagem', []);
 
-    app.controller('editPersonagemCtrl', function ($scope, $localStorage, $state, 
-        $ionicLoading, personagemService, utilServices) {
-        $scope.tab = 0;
-        $scope.p = {};
+    app.controller('editPersonagemCtrl', function ($rootScope, $scope, $localStorage, $state, $stateParams,
+        $ionicLoading, personagemService, utilServices, dialogService) {
+        $scope.pc = {};
         $scope.xpArray = []
+        $scope.xpData = {};
         $scope.totalXP = 0;
         $ionicLoading.show({
             template: 'carregando...',
@@ -16,18 +16,19 @@
             console.log("The loading indicator is now displayed");
         });
 
-        var pid = $localStorage.personagem.$id;
+        var pid = $stateParams.pid;
         console.log('personagem.$id', pid);
+
         //var ref = firebase.database().ref().child("personagens").child(pid);
 
-        var personagem = personagemService.personagemByID(pid); // $firebaseObject(ref);
-        personagem.$loaded().then(function () {
-            $scope.p = personagem;
-            console.log('personagem carregado');
+        $scope.pc = personagemService.personagemByID(pid); // $firebaseObject(ref);
+        $scope.pc.$loaded().then(function () {
+            console.log('editPersonagem carregado');
+            console.log('editPersonagem ', $scope.pc);
             $ionicLoading.hide();
         }).catch(function (error) {
             console.error("Error:", error);
-            $scope.p = $localStorage.personagem;
+            //$scope.p = $localStorage.personagem;
             $ionicLoading.hide();
         });
 
@@ -43,38 +44,74 @@
             $ionicLoading.hide();
         });
 
-        $scope.salvar = function () {
-            $scope.p.$save().then(function (ref) {
-                var ok = (ref.key === $scope.p.$id); // true
-                console.log('sucesso? ' + ok);
-                console.log('p ', $scope.p);
-                $localStorage.personagem = $scope.p;
-
-                $ionicLoading.show({
-                    template: 'Informações atualizadas com sucesso.',
-                    duration: 1500
-                }).then(function () {
-                    console.log("The loading indicator is now displayed");
-                });
-
-            }, function (error) {
-                console.log("Error:", error);
-                $ionicLoading.show({
-                    template: 'Erro ao tentar atualizar informações.',
-                    duration: 1500
-                }).then(function () {
-                    console.log("The loading indicator is now displayed");
-                });
-            });
-        }
-
         $scope.exibeXP = function () {
             $state.go("app.edit-personagem-xp", {xpArray: $scope.xpArray});
         }
 
+        $scope.aprovar = function () {
+            var confirm = dialogService.confirm({template: 'Aprovar personagem?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.pc.aprovado = 'S';
+                    $scope.pc.$save().then(function (ref) {
+                        console.log('aprovado com sucesso ');
+                        if ($rootScope.personagem.$id == $scope.pc.$id) {
+                            console.log('Atualiza personagem no $localStorage');
+                            $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
+                        }
+
+                        $ionicLoading.show({
+                            template: 'Informações atualizadas com sucesso.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                        
+                    }, function (error) {
+                        console.log("Error:", error);
+                        $ionicLoading.show({
+                            template: 'Erro ao tentar atualizar informações.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                    });
+                }
+            });
+        }
+
+        $scope.reprovar = function () {
+            var confirm = dialogService.confirm({template: 'Reprovar personagem?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.pc.aprovado = 'N';
+                    $scope.pc.$save().then(function (ref) {
+                        console.log('reprovado com sucesso ');
+                        if ($rootScope.personagem.$id == $scope.pc.$id) {
+                            console.log('Atualiza personagem no $localStorage');
+                            $localStorage.admPersonagem = angular.copy($scope.admPersonagem);
+                        }
+                        $ionicLoading.show({
+                            template: 'Informações atualizadas com sucesso.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                        
+                    }, function (error) {
+                        console.log("Error:", error);
+                        $ionicLoading.show({
+                            template: 'Erro ao tentar atualizar informações.',
+                            duration: 1500
+                        }).then(function(){
+                            console.log("The loading indicator is now displayed");
+                        });
+                    });
+                }
+            });
+        };
+
     });
-
-
 
     app.controller('timelineCtrl', function ($scope, $localStorage, $state) {
         // in controller
@@ -184,12 +221,51 @@
         };
     });
 
-    app.controller('editPersonagemXPCtrl', function ($scope, $localStorage, $state, utilServices) {
+    app.controller('editPersonagemXPCtrl', function ($scope, $localStorage, $state, utilServices, dialogService) {
         console.log("xpArray", $state.params.xpArray);
+
+        $scope.vm = {};
+        $scope.xpData = {};
+
         $scope.xpArray = $state.params.xpArray;
-    
         $scope.totalXP = utilServices.getTotalXP($scope.xpArray);
 
+        $scope.addXP = function () {
+            console.log("data: " + Date.parse($scope.xpData.data));
+            console.log(JSON.stringify($scope.xpData));
+
+            var itemxp = {
+                data :  Date.parse($scope.xpData.data),
+                descricao : $scope.xpData.descricao,
+                valor : $scope.xpData.valor
+            };
+
+            $scope.xpArray.$add(itemxp)
+            .then(function (r) {
+                console.log("xp adicionado");
+                $scope.totalXP = utilServices.getTotalXP($scope.xpArray);
+                $scope.xpData.data = null;
+                $scope.xpData.descricao = '';
+                $scope.xpData.valor = 0;
+                $scope.vm.xpform.$setPristine(true);
+                $scope.vm = {};
+
+            });
+        };
+
+        $scope.delXP = function (item) {
+            var confirm = dialogService.confirm({template: 'Remover XP?'});  
+            confirm.then(function (sucesso) {
+                if (sucesso) {
+                    $scope.xpArray.$remove(item)
+                    .then(function (r) {
+                        $scope.totalXP = utilServices.getTotalXP($scope.xpArray);
+                        $scope.xpData = {};
+                        console.log("xp removido");
+                    });
+                }
+            });
+        };
     });
 
     app.controller('editPersonagemCampoCtrl', function ($scope, $localStorage, $state, 
