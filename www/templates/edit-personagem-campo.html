@@ -10,10 +10,10 @@
                     <span class="input-label"><b>{{info.titulo}}</b></span>
                     <textarea ng-model="campo.$value" 
                         rows="30"
-                        ng-show="aprovado=='N'"
+                        ng-show="aprovado=='N' || personagem.narrador =='S'"
                         placeholder="{{info.placeholder}}">
                     </textarea>
-                    <pre ng-show="aprovado=='S'" style="margin-right: 10px;">{{campo.$value}}</pre>
+                    <pre ng-show="aprovado=='S' && personagem.narrador =='N'" style="margin-right: 10px;">{{campo.$value}}</pre>
                 </label>
             </div>
     </ion-content>

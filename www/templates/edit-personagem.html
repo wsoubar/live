@@ -23,7 +23,7 @@
             <p><span ng-bind="pc.seita"></span> - <span ng-bind="pc.clan"></span></p>
             <p>Jogador: <b><span ng-bind="pc.jogador"></span></b></p>
             <p>Aprovado: <b><span ng-bind="pc.aprovado"></span></b></p>
-            <div ng-show="personagem.narrador !='S'">
+            <div ng-show="personagem.narrador =='S'">
               <button class="button button-positive" ng-show="pc.aprovado == 'N'" ng-click="aprovar()" >Aprovar</button>
               <button class="button button-assertive" ng-show="pc.aprovado == 'S'" ng-click="reprovar()">Reprovar</button>
             </div>

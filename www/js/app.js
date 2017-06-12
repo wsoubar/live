@@ -157,10 +157,7 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
             })
 
             .state('app.edit-personagem-xp', {
-                url: '/edit-personagem-xp',
-                params: {
-                    xpArray: null
-                },                
+                url: '/edit-personagem-xp/:pid/:narrador',
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/edit-personagem-xp.html',
@@ -197,16 +194,6 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                     'menuContent': {
                         templateUrl: 'templates/dados.html',
                         controller: 'dadosCtrl'
-                    }
-                }
-            })
-
-            .state('app.timeline', {
-                url: '/timeline',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/timeline.html',
-                        controller: 'timelineCtrl'
                     }
                 }
             })

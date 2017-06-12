@@ -23,8 +23,8 @@
 
         $scope.pc = personagemService.personagemByID(pid); // $firebaseObject(ref);
         $scope.pc.$loaded().then(function () {
-            console.log('editPersonagem carregado');
-            console.log('editPersonagem ', $scope.pc);
+            console.log('pc carregado');
+            //console.log('pc ', $scope.pc);
             $ionicLoading.hide();
         }).catch(function (error) {
             console.error("Error:", error);
@@ -45,7 +45,11 @@
         });
 
         $scope.exibeXP = function () {
-            $state.go("app.edit-personagem-xp", {xpArray: $scope.xpArray});
+            $state.go("app.edit-personagem-xp", 
+                { pid: pid, 
+                  narrador: $rootScope.personagem.narrador
+                }
+            );
         }
 
         $scope.aprovar = function () {
@@ -111,21 +115,6 @@
             });
         };
 
-    });
-
-    app.controller('timelineCtrl', function ($scope, $localStorage, $state) {
-        // in controller
-        $scope.events = [{
-            badgeClass: 'info',
-            badgeIconClass: 'glyphicon-check',
-            title: 'First heading',
-            content: 'Some awesome content.'
-        }, {
-            badgeClass: 'warning',
-            badgeIconClass: 'glyphicon-credit-card',
-            title: 'Second heading',
-            content: 'More awesome content.'
-        }];
     });
 
     app.controller('personagensCtrl', function ($scope, $localStorage, $state, personagemService, $ionicLoading, utilServices) {
@@ -221,18 +210,29 @@
         };
     });
 
-    app.controller('editPersonagemXPCtrl', function ($scope, $localStorage, $state, utilServices, dialogService) {
-        console.log("xpArray", $state.params.xpArray);
-
+    app.controller('editPersonagemXPCtrl', function ($scope, $localStorage, $state, $stateParams, utilServices, 
+        dialogService, personagemService, $ionicLoading) {
         $scope.vm = {};
         $scope.xpData = {};
 
-        $scope.xpArray = $state.params.xpArray;
-        $scope.totalXP = utilServices.getTotalXP($scope.xpArray);
+        var pid = $stateParams.pid;
+        $scope.narrador = $stateParams.narrador;
+
+        var xps = personagemService.XPsByPersonagem(pid);
+        xps.$loaded().then(function () {
+            $scope.xpArray = xps;
+            $scope.totalXP = utilServices.getTotalXP($scope.xpArray);
+            console.log('xps carregados');
+            $ionicLoading.hide();
+        }).catch(function (error) {
+            console.error("Error:", error);
+            $ionicLoading.hide();
+        });
+
+        //$scope.xpArray = $state.params.xpArray;
+        //$scope.totalXP = utilServices.getTotalXP($scope.xpArray);
 
         $scope.addXP = function () {
-            console.log("data: " + Date.parse($scope.xpData.data));
-            console.log(JSON.stringify($scope.xpData));
 
             var itemxp = {
                 data :  Date.parse($scope.xpData.data),
@@ -297,15 +297,12 @@
             //console.log("h>", h.$value);
             $scope.campo = campo;
             $scope.info = campos[$stateParams.campo];
-            console.log('info', $scope.info);
+            //console.log('info', $scope.info);
         });
 
         $scope.salvar = function () {
             $scope.campo.$save().then(function (ref) {
-                var ok = (ref.key === $scope.campo.$id); // true
-                console.log('sucesso? ' + ok);
-                //console.log('value ', $scope.historia.$value);
-                // $localStorage.personagem = $scope.p;
+                console.log($stateParams.campo + ' salvo com sucesso');
 
                 $ionicLoading.show({
                     template: 'Informações atualizadas com sucesso.',
