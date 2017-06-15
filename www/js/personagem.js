@@ -19,9 +19,7 @@
         var pid = $stateParams.pid;
         console.log('personagem.$id', pid);
 
-        //var ref = firebase.database().ref().child("personagens").child(pid);
-
-        $scope.pc = personagemService.personagemByID(pid); // $firebaseObject(ref);
+        $scope.pc = personagemService.personagemByID(pid); 
         $scope.pc.$loaded().then(function () {
             console.log('pc carregado');
             //console.log('pc ', $scope.pc);

@@ -68,40 +68,33 @@
         //personagemInfo();
 
         function personagemInfo(options) {
-            var total = 0;
-            var personagens = personagemService.personagens();
-            personagens.$loaded().then(function () {
-                console.log('total: ' +personagens.length);
-                angular.forEach(personagens, function (personagem) {
-                    //console.log('personagem: ' + personagem.nome);
-
-                    var pi = personagemService.personagemInfoByPID(personagem.$id);
-                    pi.$loaded().then(function () {
-                        console.log('Salva PI para ' + personagem.$id + '-'+personagem.jogador);
-                        pi.planilha = personagem.planilha;
-                        pi.historia = personagem.historia;
-                        pi.rumores = personagem.rumores;
-                        pi.antecedentes = personagem.antecedentes;
-
-                        pi.$save().then(function (params) {
-                            console.log('PI salvo com sucesso', pi.key);
-                        });
-
-                        // console.log('Data: ' + JSON.stringify(itemxp));
-                        // console.log(new Date(itemxp.data));
-/*
-                        xps.$add(itemxp)
-                        .then(function (r) {
-                            console.log("XP atribuído com sucesso!");
-                        });
-*/
-
-                    }).catch(function (error) {
-                        console.error("Error:", error);
+            // apaga todos os dados em PersonagensInfo para poder carregar tudo de novo
+            firebase.database().ref().child("personagensInfo").remove();
+            // carrega todos os personagens 
+            var pRef = firebase.database().ref().child("personagens").orderByChild("nome");
+            pRef.once('value', function (snap) {
+                //console.log('snap', snap.val());
+                // faz loop nos personagens
+                snap.forEach(function (personagem) {
+                    console.log('key', personagem.key);
+                    // console.log('personagem', personagem.val());
+                    var p = personagem.val();
+                    // add chave unica em personagensInfo
+                    var piRef = firebase.database().ref().child("personagensInfo").push();
+                    // salva as infos nessa chave unica nova
+                    piRef.set({
+                        pid: personagem.key,
+                        historia: p.historia || "em Construção",
+                        planilha : p.planilha  || "em construção",
+                        rumores : p.rumores || "em construção",
+                        antecedentes : p.antecedentes || "em construção"
                     });
-                    
+                    // grava a chave unica em personagem
+                    firebase.database().ref().child("personagens").child(personagem.key).update({personagensInfoKey: piRef.key});
+                    //return true;
                 });
             });
+
         }
 
 
@@ -174,7 +167,7 @@
         //fixChat();
     });
 
-    app.controller('homeCtrl', function ($scope, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray, utilServices) {
+    app.controller('homeCtrl', function ($scope, $sce, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray, utilServices) {
         /*
         var citacoes = [
             {
@@ -183,6 +176,10 @@
             }
         ];
 */
+//http://www.geocities.ws/hpkbrasil/down/Disciplinas.pdf
+//        $scope.pdfurl =$sce.trustAsResourceUrl('https://docs.google.com/viewer?url=' + encodeURIComponent($scope.pdf));
+        $scope.pdfurl =$sce.trustAsResourceUrl('http://www.geocities.ws/hpkbrasil/down/');
+
         $ionicLoading.show({
             template: 'carregando citação...',
             duration: 20000

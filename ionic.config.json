@@ -1,5 +1,8 @@
 {
   "name": "thelive",
   "app_id": "5b1f5018",
-  "type": "ionic1"
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ]
 }

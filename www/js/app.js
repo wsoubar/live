@@ -39,64 +39,18 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                 }
             }, 100);
 
-            /*
-            //    FCMPlugin.subscribeToTopic('MeusTestes');
-            setTimeout(function() {
-                console.log('carregando onNotification');
-                var messaging = firebase.messaging();
-            
-                messaging.onMessage(function(payload) {
-                    console.log("Message received. ", payload);
-                    // ...
-                });
-            
-                //FCMPlugin.getToken( successCallback(token), errorCallback(err) );
-                //Keep in mind the function will return null if the token has not been established yet.
-                FCMPlugin.getToken(function(token){
-                    alert(token);
-                    if (token) {
-                        fcmNotification();
-                    }
-                });
-            
-                var fcmNotification = function () {
-                  //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
-                  //Here you define your application behaviour based on the notification data.
-                  FCMPlugin.onNotification(function(data){
-                      if(data.wasTapped){
-                        //Notification was received on device tray and tapped by the user.
-                        console.log( JSON.stringify(data) );
-                        alert( JSON.stringify(data) );
-                      }else{
-                        //Notification was received in foreground. Maybe the user needs to be notified.
-                        console.log( JSON.stringify(data) );
-                        alert( JSON.stringify(data) );
-                      }
-                  }, function (sucesso) {
-                      console.log(JSON.stringify(sucesso));
-                  }, function (erro) {
-                      console.log(JSON.stringify(erro));
-                  });    
-                }
-              
-            }, 3000);
-            */
-
-            /*
-                $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-                  console.log('on $stateChangeStart');
-                  var user = firebase.auth().currentUser;
-                  if (toState.authRequired && !user){ //Assuming the AuthService holds authentication logic
-                    // User isn’t authenticated
-                    $state.transitionTo("login");
-                    event.preventDefault(); 
-                  }
-                });
-            */
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   // Allow loading from our assets domain.  Notice the difference between * and **.
+   'http://www.geocities.ws/hpkbrasil/**']);
+
         $stateProvider
 
             .state('login', {
@@ -292,6 +246,17 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
                     'menuContent': {
                         templateUrl: 'templates/pagto-adm.html',
                         controller: 'pagtoAdmCtrl'
+                    }
+                }
+
+            })
+
+            .state('app.pagto-adm-evento', {
+                url: '/pagto-adm-evento/:eventoID',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/pagto-adm-evento.html',
+                        controller: 'pagtoAdmEventoCtrl'
                     }
                 }
 

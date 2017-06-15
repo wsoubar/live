@@ -1,0 +1,28 @@
+<ion-view view-title="Pagamentos">
+    <ion-content>
+        <div class="list">
+            <form name="vm.xpform" ng-submit="addPagto()" novalidate>
+                <div class="item item-divider row">
+                    Adicionar Pagamento
+                </div>
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">Data</span>
+                    <input type="date" name="data" ng-model="pgData.data" required>
+                    <p style="color: red" ng-show="xpform.data.$error.required && !xpform.data.$pristine">* Data é obrigatória</p>
+                </div>
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">Descrição</span>
+                    <input type="text" name="descricao" ng-model="pgData.descricao" required>
+                    <p style="color: red" ng-show="xpform.descricao.$error.required && !xpform.descricao.$pristine">* Descrição é obrigatória</p>
+                </div>
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">valor</span>
+                    <input type="number" ng-model="pgData.valor" required>
+                </div>
+                <div>
+                    <button type="submit" class="button button-block button-positive">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

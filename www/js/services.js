@@ -128,6 +128,10 @@
                 var ref = firebase.database().ref().child("personagens").orderByChild("nome");
                 return $firebaseArray(ref);
             }
+            function personagensOrderByJogador() {
+                var ref = firebase.database().ref().child("personagens").orderByChild("jogador");
+                return $firebaseArray(ref);
+            }
 
             function personagemByUserID(userid) {
                 var ref = firebase.database().ref().child("personagens").orderByChild("userid").equalTo(userid);
@@ -156,13 +160,28 @@
                 return $firebaseObject(ref);                
             }
 
-/*
-            function deletePersonagemInfo(pih) {
-                var ref = firebase.database().ref().child("personagemInfo").child(pid);
-                return ref;                
-            }
-*/
         }
     ]);
 
+    app.factory("pagtoServices", function($firebaseArray, $firebaseObject) {
+        var factory = {
+            pagtoEventos : pagtoEventos
+        };
+        
+        return factory;
+
+        //var rootRef = firebase.database().ref();
+
+        function pagtoEventos(params) {
+            console.log("id ", params);
+            var ref = firebase.database().ref("pagamentos").orderByChild('data').limitToLast(12);
+            return $firebaseArray(ref);
+        }
+
+        function pagtoEventoByID(params) {
+            console.log("id ", params);
+            var ref = firebase.database().ref("pagamentos/"+params.id+"/pagantes");
+            return $firebaseArray(ref);
+        }
+    });
 })();
