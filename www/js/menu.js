@@ -176,9 +176,6 @@
             }
         ];
 */
-//http://www.geocities.ws/hpkbrasil/down/Disciplinas.pdf
-//        $scope.pdfurl =$sce.trustAsResourceUrl('https://docs.google.com/viewer?url=' + encodeURIComponent($scope.pdf));
-        $scope.pdfurl =$sce.trustAsResourceUrl('http://www.geocities.ws/hpkbrasil/down/');
 
         $ionicLoading.show({
             template: 'carregando citação...',

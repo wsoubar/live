@@ -45,12 +45,14 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova', 'ngStorage', 'servi
     .config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
 
 
-    $sceDelegateProvider.resourceUrlWhitelist([
+/* 
+   $sceDelegateProvider.resourceUrlWhitelist([
    // Allow same origin resource loads.
    'self',
    // Allow loading from our assets domain.  Notice the difference between * and **.
-   'http://www.geocities.ws/hpkbrasil/**']);
-
+   'http://www.geocities.ws/hpkbrasil/**'
+   ]);
+*/
         $stateProvider
 
             .state('login', {
