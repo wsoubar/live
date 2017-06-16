@@ -19,8 +19,8 @@
     <ion-content>
       <ion-list>
         <li class="item item-image">
-          <a menu-toggle ui-sref="app.home">
-            <img ng-src="{{user.claImage ? user.claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
+          <a menu-toggle ng-click="escolherImagem()">
+            <img src="{{claImage ? claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
           </a>
         </li>
 <!--

@@ -164,7 +164,46 @@
             });
         }
 
-        //fixChat();
+  var options = {
+   maximumImagesCount: 1,
+   width: 800,
+   height: 800,
+   quality: 80
+  };
+
+$scope.claImage = undefined;
+  $scope.escolherImagem = function () {
+
+imagePicker.getPictures(function(result) { 
+    console.log(JSON.stringify(result))
+    $scope.claImage = "data:image/png;base64," +result; 
+
+        var storageRef = firebase.storage().ref().child("image");
+
+        var task = storageRef.putString(result, 'base64').then(function(snapshot) {
+         console.log('Uploaded a base64 string!');
+         });
+}, function(errmsg) { 
+    console.log("ohoh.. " + errmsg) }, // error handler
+  { // options object, all optional
+    maximumImagesCount: 2, // Android only since plugin version 2.1.1, default no limit
+    quality: 90, // 0-100, default 100 which is highest quality
+    width: 400,  // proportionally rescale image to this width, default no rescale
+    height: 400, // same for height
+    outputType: imagePicker.OutputType.BASE64_STRING // default .FILE_URI
+  }
+);
+/*
+    $cordovaImagePicker.getPictures(options)
+        .then(function (results) {
+        for (var i = 0; i < results.length; i++) {
+            console.log('Image URI: ' + results[i]);
+        }
+        }, function(error) {
+        // error getting photos
+        });
+*/        
+  }
     });
 
     app.controller('homeCtrl', function ($scope, $sce, $localStorage, $ionicLoading, $firebaseObject, $firebaseArray, utilServices) {
