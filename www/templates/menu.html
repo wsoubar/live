@@ -14,13 +14,13 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-assertive">
-      <h1 class="title">Immortal Alliance Live Action</h1>
+      <h1 class="title">Live Action</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
         <li class="item item-image">
-          <a menu-toggle ng-click="escolherImagem()">
-            <img src="{{claImage ? claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img"> <!-- ./img/clanlogos/ventrue.png -->
+          <a menu-toggle > <!-- ng-click="escolherImagem()" --> 
+            <img src="{{claImage ? claImage : './img/clanlogos/caitiff.png'}}" class="gm-header-menu-img" > <!-- class="gm-header-menu-img" class="full-image" ./img/clanlogos/ventrue.png -->
           </a>
         </li>
 <!--
@@ -64,6 +64,7 @@
           <i class="icon ion-log-out"></i>
           Sair
         </a>      
+        <span class="item-note">versão 0.0.16</span> 
       </ion-list>
     </ion-content>
   </ion-side-menu>

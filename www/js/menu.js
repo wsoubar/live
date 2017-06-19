@@ -4,7 +4,7 @@
     var app = angular.module('menu', []);
 
     app.controller('menuCtrl', function ($rootScope, $scope, $localStorage, $state, $ionicLoading, 
-    dialogService, personagemService, $firebaseArray) {
+    dialogService, personagemService, $firebaseArray, $firebaseStorage) {
 
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -178,11 +178,40 @@ imagePicker.getPictures(function(result) {
     console.log(JSON.stringify(result))
     $scope.claImage = "data:image/png;base64," +result; 
 
-        var storageRef = firebase.storage().ref().child("image");
+    //    var storageRef = firebase.storage().ref();
+    var storageRef = firebase.storage().ref("images/avatar-"+pid);
+    $scope.storage = $firebaseStorage(storageRef);
 
-        var task = storageRef.putString(result, 'base64').then(function(snapshot) {
-         console.log('Uploaded a base64 string!');
-         });
+    // File or Blob, assume the file is called rivers.jpg
+    //var file = result;
+
+    // Upload the file to the path 'images/rivers.jpg'
+    // We can use the 'name' property on the File API to get our file name
+   // var uploadTask = storageRef.child('images/' + 'file.teste').put(file);
+    var uploadTask = $scope.storage.$put(new Blob(result, { type: "image/jpeg" }));
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on('state_changed', function(snapshot){
+    // Observe state change events such as progress, pause, and resume
+    // See below for more detail
+    console.log('aqqui');
+    }, function(error) {
+    // Handle unsuccessful uploads
+    }, function() {
+    // Handle successful uploads on complete
+    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+    $scope.storage.$getDownloadURL().then(function(url) {
+        $scope.url = url;
+        console.log('url');
+        console.log(url);
+    });
+    console.log('dwlUrl ' + downloadURL);
+    });
+
+
+
 }, function(errmsg) { 
     console.log("ohoh.. " + errmsg) }, // error handler
   { // options object, all optional
@@ -190,7 +219,7 @@ imagePicker.getPictures(function(result) {
     quality: 90, // 0-100, default 100 which is highest quality
     width: 400,  // proportionally rescale image to this width, default no rescale
     height: 400, // same for height
-    outputType: imagePicker.OutputType.BASE64_STRING // default .FILE_URI
+    outputType: imagePicker.OutputType.BASE64_STRING // default .FILE_URI // BASE64_STRING
   }
 );
 /*
