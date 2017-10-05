@@ -22,7 +22,7 @@
         $scope.pc = personagemService.personagemByID(pid); 
         $scope.pc.$loaded().then(function () {
             console.log('pc carregado');
-            //console.log('pc ', $scope.pc);
+            console.log('pc ', $scope.pc);
             $ionicLoading.hide();
         }).catch(function (error) {
             console.error("Error:", error);
